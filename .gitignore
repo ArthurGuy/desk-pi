@@ -1,1 +1,6 @@
 venv
+slack-token.txt
+slack-user.txt
+personal-token.pickle
+vestd-token.pickle
+credentials.json
