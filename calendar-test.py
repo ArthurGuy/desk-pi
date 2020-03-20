@@ -10,7 +10,7 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
-def getCalendarItems(calendarId):
+def get_calendar_items(calendarId):
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -55,7 +55,7 @@ def getCalendarItems(calendarId):
     return eventList
 
 if __name__ == '__main__':
-    eventList = getCalendarItems("vestd") + getCalendarItems("personal")
+    eventList = get_calendar_items("vestd") + get_calendar_items("personal")
     eventList = sorted(eventList, key=lambda event: event.get('date'))
     for event in eventList:
         date = datetime.datetime.fromisoformat(event.get('date').replace("Z", "+00:00"));
