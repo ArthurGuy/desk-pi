@@ -17,7 +17,7 @@ else:
 
 slack_client = slack.WebClient(token=slack_token)
 
-print("users", slack_client.users_list())
+# print("users", slack_client.users_identity())
 
 
 def get_slack_status():
@@ -27,10 +27,12 @@ def get_slack_status():
     print(profile.get('profile').get('status_text'))
 
 
-def set_slack_status(status):
-    print("setting status for user", slack_user, status)
-    slack_client.users_profile_set(user=slack_user, name='status_text', value='Testing stuff')
+def set_slack_status_busy():
+    print("setting status for user", slack_user)
+    slack_client.users_profile_set(user=slack_user, name='status_text', value='Busy')
+    slack_client.users_profile_set(user=slack_user, name='status_emoji', value=':deciduous_tree:')
 
 
 if __name__ == '__main__':
     get_slack_status()
+    set_slack_status_busy()
