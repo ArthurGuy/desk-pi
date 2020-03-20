@@ -1,6 +1,5 @@
 import os
 import slack
-import json
 
 
 slack_token = None
@@ -34,6 +33,12 @@ def set_slack_status_busy():
     slack_client.users_profile_set(user=slack_user, profile=status)
 
 
+def set_slack_status_empty():
+    status = {'status_text': None, 'status_emoji': None}
+    print("setting status for user", slack_user, status)
+    slack_client.users_profile_set(user=slack_user, profile=status)
+
+
 if __name__ == '__main__':
     get_slack_status()
-    set_slack_status_busy()
+    set_slack_status_empty()
