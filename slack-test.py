@@ -17,6 +17,8 @@ else:
 
 slack_client = slack.WebClient(token=slack_token)
 
+print("users", slack_client.users_list())
+
 
 def get_slack_status():
     print("fetching data for user", slack_user)
