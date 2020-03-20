@@ -4,13 +4,15 @@ import slack
 
 def set_slack_status(status):
 
+    slack_token = None
     if os.path.exists('slack-token.txt'):
-        slack_token = open('slack-token.txt', 'r').read()
+        slack_token = str(open('slack-token.txt', 'r').read())
     else:
         print('No token set for slack')
 
+    slack_user = None
     if os.path.exists('slack-user.txt'):
-        slack_user = open('slack-user.txt', 'r').read()
+        slack_user = str(open('slack-user.txt', 'r').read())
     else:
         print('No user set for slack')
 
