@@ -1,6 +1,10 @@
+import os
 from inky import InkyPHAT
 from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
+
+
+PATH = os.path.dirname(__file__)
 
 inky_display = InkyPHAT('red')
 
@@ -28,6 +32,8 @@ for y in range(21, 30):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
 
+tree = Image.open(os.path.join(PATH, "tree.png"))
+img.paste(tree, (60, 60))
 
 hello_w, hello_h = hanken_bold_font.getsize("Hello")
 hello_x = 0
