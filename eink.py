@@ -95,6 +95,7 @@ draw_text((5, y), "All day: Mother's Day")
 
 y += 18
 draw_text((5, y), "13:00: Interview 2", font=hanken_bold_font)
+y += 3
 
 y += 18
 draw_text((5, y), "14:00: Project A review meeting")
