@@ -1,4 +1,5 @@
 from inky import InkyPHAT
+import numpy
 
 inkyphat = InkyPHAT('red')
 
