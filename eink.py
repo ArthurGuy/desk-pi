@@ -53,7 +53,7 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     img.paste(colour, position, mask)
 
 
-# inky_display.set_border(inky_display.BLACK)
+inky_display.set_border(inky_display.BLACK)
 
 
 # for y in range(0, 10):
@@ -108,9 +108,9 @@ for y in range(80, inky_display.height):
         img.putpixel((x, y), inky_display.BLACK)
 draw_text((130, 85), "21st March", colour=inky_display.WHITE)
 
-for y in range(100, inky_display.height):
-    for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.BLACK)
+# for y in range(100, inky_display.height):
+#     for x in range(0, inky_display.width):
+#         img.putpixel((x, y), inky_display.BLACK)
 
 inky_display.set_image(img)
 inky_display.show()
