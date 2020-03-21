@@ -34,6 +34,7 @@ edge_hew = 0.2
 edge_brightness = 0
 event_hew = 0
 event_brightness = 1
+event_brightness_past = 0.6
 
 event_times = [{'start': '15:00', 'minute_duration': '60'}, {'start': '10:00', 'minute_duration': '100'}]
 
@@ -96,7 +97,7 @@ def update_led_row():
         event_minute = int(event.get('start').split(':')[1])
         minute_duration = int(event.get('minute_duration'))
         if event_hour < current_time.hour or (event_hour == current_time.hour and event_minute < current_time.minute):
-            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness * 0.5)
+            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness_past)
         else:
             highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
 
