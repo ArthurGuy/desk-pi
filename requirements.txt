@@ -4,3 +4,5 @@ google-auth-oauthlib
 slackclient
 inky
 ledshim
+smbus
+numpy
