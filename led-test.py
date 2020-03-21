@@ -37,12 +37,12 @@ def set_pixel(x, h, s, v):
 
 while True:
     for x in range(ledshim.NUM_PIXELS):
-        if (x <= start_extra):
-            set_pixel(x, 0.2, 1, 1)
-        elif (x <= start_extra + leds_for_all_hours):
-            set_pixel(x, 0.4, 1, 1)
+        if (x < start_extra):
+            set_pixel(x, 0.2, 1, 0.4)
+        elif (x < start_extra + leds_for_all_hours):
+            set_pixel(x, 0.9, 1, 0.7)
         else:
-            set_pixel(x, 0.2, 1, 1)
+            set_pixel(x, 0.2, 1, 0.4)
     ledshim.show()
 
     time.sleep(0.1)
