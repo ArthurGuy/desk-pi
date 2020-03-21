@@ -35,7 +35,7 @@ edge_brightness = 0.5
 event_hew = 0
 event_brightness = 1
 
-event_times = [{'start': '15:00', 'minute_duration': '60'}]
+event_times = [{'start': '15:00', 'minute_duration': '60'}, {'start': '10:00', 'minute_duration': '100'}]
 
 
 def set_pixel(x, h, s, v):
