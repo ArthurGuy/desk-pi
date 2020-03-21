@@ -43,20 +43,23 @@ def set_pixel(x, h, s, v):
 
 
 def highlight_time(hour, minute, hew, brightness):
+    pixel = None
     if leds_per_hour == 1:
-        set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+        pixel = start_extra + (leds_per_hour * (hour - start_hour))
     elif leds_per_hour == 2:
         if minute >= 30:
-            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 1, hew, 1, brightness)
+            pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
-            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+            pixel = start_extra + (leds_per_hour * (hour - start_hour))
     elif leds_per_hour == 3:
         if minute >= 40:
-            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 2, hew, 1, brightness)
+            pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 2
         elif minute >= 20:
-            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 1, hew, 1, brightness)
+            pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
-            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+            pixel = start_extra + (leds_per_hour * (hour - start_hour))
+    if pixel is not None:
+        set_pixel(pixel, hew, 1, brightness)
 
 
 def update_led_row():
@@ -80,7 +83,6 @@ def update_led_row():
         for event in event_times:
             event_hour = int(event.get('start').split(':')[0])
             event_minute = int(event.get('start').split(':')[1])
-            # set_pixel(start_extra + (leds_per_hour * (event_hour - start_hour)), event_hew, 1, event_brightness)
             highlight_time(event_hour, event_minute, event_hew, event_brightness)
 
         # Colour in the current time marker
