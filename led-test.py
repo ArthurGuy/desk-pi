@@ -3,7 +3,7 @@
 import math
 import time
 import colorsys
-
+import math
 import ledshim
 
 FALLOFF = 1.9
@@ -11,9 +11,42 @@ SCAN_SPEED = 4
 
 ledshim.set_clear_on_exit()
 
+ledshim.NUM_PIXELS // 28
+
 start_time = time.time()
 
-target_time = 16
+start_hour = 8
+end_hour = 6
+
+target_time = 4
+
+hours_to_track = (12 - start_hour) + end_hour + 1
+
+leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
+leds_for_all_hours = leds_per_hour * hours_to_track
+extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
+
+start_extra = math.floor(extra_leds / 2)
+end_extra = extra_leds - start_extra
+
+
+def set_pixel(x, h, s, v):
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(0.2, 1.0, 1)]
+    ledshim.set_pixel(20, r, g, b, 0.8)
+
+
+while True:
+    for x in range(ledshim.NUM_PIXELS):
+        if (x <= start_extra):
+            set_pixel(x, 0.2, 1, 1)
+        elif (x <= start_extra + leds_for_all_hours):
+            set_pixel(x, 0.4, 1, 1)
+        else:
+            set_pixel(x, 0.2, 1, 1)
+    ledshim.show()
+
+    time.sleep(0.1)
+
 
 while True:
     for x in range(ledshim.NUM_PIXELS):
@@ -36,6 +69,10 @@ while True:
     ledshim.show()
 
     time.sleep(0.1)
+
+
+
+
 
 #
 # while True:
