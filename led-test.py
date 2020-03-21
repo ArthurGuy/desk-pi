@@ -31,7 +31,7 @@ current_time_brightness = 0.9
 work_day_hew = 0.9
 work_day_brightness = 0.6
 edge_hew = 0.2
-edge_brightness = 0.5
+edge_brightness = 0
 event_hew = 0
 event_brightness = 1
 
@@ -97,20 +97,21 @@ def update_led_row():
 
         # Colour in the current time marker
         if working_hours:
-            if leds_per_hour == 1:
-                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
-            elif leds_per_hour == 2:
-                if current_time.minute >= 30:
-                    set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
-                else:
-                    set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
-            elif leds_per_hour == 3:
-                if current_time.minute >= 40:
-                    set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 2, current_time_hew, 1, current_time_brightness)
-                elif current_time.minute >= 20:
-                    set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
-                else:
-                    set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
+            highlight_time(current_time.hour, current_time.minute, None, current_time_hew, current_time_brightness)
+            # if leds_per_hour == 1:
+            #     set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
+            # elif leds_per_hour == 2:
+            #     if current_time.minute >= 30:
+            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
+            #     else:
+            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
+            # elif leds_per_hour == 3:
+            #     if current_time.minute >= 40:
+            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 2, current_time_hew, 1, current_time_brightness)
+            #     elif current_time.minute >= 20:
+            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
+            #     else:
+            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
 
     ledshim.show()
 
