@@ -6,7 +6,7 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 
 PATH = os.path.dirname(__file__)
 
-inky_display = InkyPHAT('red')
+inky_display = InkyPHAT('black')
 
 
 # Fonts
