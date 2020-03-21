@@ -75,7 +75,7 @@ def highlight_time(hour, minute, minute_duration, hew, brightness, saturation=1)
 
 def update_led_row():
     current_time = datetime.datetime.now()
-    current_time = datetime.datetime.fromisoformat('2020-03-21 14:25')
+    # current_time = datetime.datetime.fromisoformat('2020-03-21 14:25')
 
     if current_time.hour >= start_hour and current_time.hour < end_hour:
         working_hours = True
