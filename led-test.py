@@ -29,9 +29,9 @@ end_extra = extra_leds - start_extra
 current_time_hew = 0.5
 current_time_brightness = 0.9
 work_day_hew = 0.9
-work_day_brightness = 0.7
+work_day_brightness = 0.6
 edge_hew = 0.2
-edge_brightness = 0.4
+edge_brightness = 0.5
 
 
 def set_pixel(x, h, s, v):
