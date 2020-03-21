@@ -42,6 +42,23 @@ def set_pixel(x, h, s, v):
     ledshim.set_pixel(x, r, g, b, v)
 
 
+def highlight_time(hour, minute, hew, brightness):
+    if leds_per_hour == 1:
+        set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+    elif leds_per_hour == 2:
+        if minute >= 30:
+            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 1, hew, 1, brightness)
+        else:
+            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+    elif leds_per_hour == 3:
+        if minute >= 40:
+            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 2, hew, 1, brightness)
+        elif minute >= 20:
+            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)) + 1, hew, 1, brightness)
+        else:
+            set_pixel(start_extra + (leds_per_hour * (hour - start_hour)), hew, 1, brightness)
+
+
 def update_led_row():
     current_time = datetime.datetime.now()
     current_time = datetime.datetime.fromisoformat('2020-03-21 14:25')
@@ -63,7 +80,8 @@ def update_led_row():
         for event in event_times:
             event_hour = int(event.get('start').split(':')[0])
             event_minute = int(event.get('start').split(':')[1])
-            set_pixel(start_extra + (leds_per_hour * (event_hour - start_hour)), event_hew, 1, event_brightness)
+            # set_pixel(start_extra + (leds_per_hour * (event_hour - start_hour)), event_hew, 1, event_brightness)
+            highlight_time(event_hour, event_minute, event_hew, event_brightness)
 
         # Colour in the current time marker
         if working_hours:
