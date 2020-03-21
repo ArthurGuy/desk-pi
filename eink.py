@@ -90,7 +90,7 @@ y = 0
 # draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
 # draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
-y = 5
+y = 0
 draw_text((0, y), "All day Mother's Day")
 
 y += 18
