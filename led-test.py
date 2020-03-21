@@ -13,7 +13,7 @@ ledshim.set_clear_on_exit()
 
 start_time = time.time()
 
-target_time = 20
+target_time = 18
 
 while True:
     for x in range(ledshim.NUM_PIXELS):
@@ -22,13 +22,16 @@ while True:
         elif x > target_time:
             val = 0.4
         else:
-            val = 0.6
+            val = 0.5
 
         sat = 1.0
         hue = 0.5
 
         r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hue, sat, val)]
         ledshim.set_pixel(x, r, g, b, val)
+
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(0.8, 1.0, 0.9)]
+    ledshim.set_pixel(23, r, g, b, 0.9)
 
     ledshim.show()
 
