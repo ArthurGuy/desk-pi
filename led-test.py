@@ -48,13 +48,15 @@ def highlight_time(hour, minute, minute_duration, hew, brightness):
     num_leds = 1
     if leds_per_hour == 1:
         pixel = start_extra + (leds_per_hour * (hour - start_hour))
-        num_leds = math.floor(minute_duration / 60)
+        if minute_duration is not None:
+            num_leds = math.floor(minute_duration / 60)
     elif leds_per_hour == 2:
         if minute >= 30:
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
-        num_leds = math.floor(minute_duration / 30)
+        if minute_duration is not None:
+            num_leds = math.floor(minute_duration / 30)
     elif leds_per_hour == 3:
         if minute >= 40:
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 2
@@ -62,7 +64,8 @@ def highlight_time(hour, minute, minute_duration, hew, brightness):
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
-        num_leds = math.floor(minute_duration / 20)
+        if minute_duration is not None:
+            num_leds = math.floor(minute_duration / 20)
 
     if pixel is not None:
         # set_pixel(pixel, hew, 1, brightness)
