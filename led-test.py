@@ -43,7 +43,7 @@ def set_pixel(x, h, s, v):
     ledshim.set_pixel(x, r, g, b, v)
 
 
-def highlight_time(hour, minute, minute_duration, hew, brightness):
+def highlight_time(hour, minute, minute_duration, hew, brightness, saturation=1):
     pixel = None
     num_leds = 1
     if leds_per_hour == 1:
@@ -68,10 +68,8 @@ def highlight_time(hour, minute, minute_duration, hew, brightness):
             num_leds = math.floor(minute_duration / 20)
 
     if pixel is not None:
-        # set_pixel(pixel, hew, 1, brightness)
-        # if num_leds > 1:
         for x in range(num_leds):
-            set_pixel(pixel + x, hew, 1, brightness)
+            set_pixel(pixel + x, hew, saturation, brightness)
 
 
 def update_led_row():
@@ -100,21 +98,7 @@ def update_led_row():
 
         # Colour in the current time marker
         if working_hours:
-            highlight_time(current_time.hour, current_time.minute, None, current_time_hew, current_time_brightness)
-            # if leds_per_hour == 1:
-            #     set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
-            # elif leds_per_hour == 2:
-            #     if current_time.minute >= 30:
-            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
-            #     else:
-            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
-            # elif leds_per_hour == 3:
-            #     if current_time.minute >= 40:
-            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 2, current_time_hew, 1, current_time_brightness)
-            #     elif current_time.minute >= 20:
-            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
-            #     else:
-            #         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
+            highlight_time(current_time.hour, current_time.minute, None, current_time_hew, current_time_brightness, 0)
 
     ledshim.show()
 
