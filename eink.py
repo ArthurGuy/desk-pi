@@ -11,7 +11,7 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
-hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(10))
+hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(15))
 
 
 # Canvas
@@ -64,8 +64,8 @@ hello_y = 30
 draw.text((hello_x, hello_y), "Hello", inky_display.BLACK, font=hanken_bold_font)
 
 busy_w, busy_h = hanken_label_font.getsize("Busy")
-busy_x = 60
-busy_y = 60
+busy_x = 0
+busy_y = 0
 draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
 
 
