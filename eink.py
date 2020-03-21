@@ -60,30 +60,35 @@ inky_display.set_border(inky_display.BLACK)
 #     for x in range(0, inky_display.width):
 #         img.putpixel((x, y), inky_display.RED)
 
-for y in range(11, 20):
-    for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.WHITE)
-
-for y in range(21, 30):
-    for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.BLACK)
+# for y in range(11, 20):
+#     for x in range(0, inky_display.width):
+#         img.putpixel((x, y), inky_display.WHITE)
+#
+# for y in range(21, 30):
+#     for x in range(0, inky_display.width):
+#         img.putpixel((x, y), inky_display.BLACK)
 
 # tree = Image.open(os.path.join(PATH, "tree.png"))
 # tree_mask = create_mask(tree, mask=(inky_display.WHITE, inky_display.BLACK))
 # img.paste(tree, (60, 60), tree_mask)
 
-hello_w, hello_h = hanken_bold_font.getsize("Hello")
-hello_x = 0
-hello_y = 30
-draw.text((hello_x, hello_y), "Hello", inky_display.BLACK, font=hanken_bold_font)
-
-busy_w, busy_h = hanken_label_font.getsize("Busy")
-busy_x = 0
-busy_y = 0
-draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
+# hello_w, hello_h = hanken_bold_font.getsize("Hello")
+# hello_x = 0
+# hello_y = 30
+# draw.text((hello_x, hello_y), "Hello", inky_display.BLACK, font=hanken_bold_font)
+#
+# busy_w, busy_h = hanken_label_font.getsize("Busy")
+# busy_x = 0
+# busy_y = 0
+# draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
 
 draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
 draw_text((80, 20), "World", rotation=90)
+
+draw_text((0, 0), "Sunday 22 March 2020 00:00 Mother's Day")
+draw_text((0, 20), "Monday 23 March 2020 13:00 Interview 1")
+draw_text((0, 40), "Monday 23 March 2020 14:30 Interview 2")
+draw_text((0, 60), "Wednesday 25 March 2020 14:00 1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
