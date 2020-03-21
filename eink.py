@@ -90,17 +90,17 @@ y = 0
 draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
 draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
-y += 35
-draw_text((5, y), "Sun 22 Mar - All day")
-draw_text((5, y + 14), "Mother's Day")
+y += 25
+draw_text((5, y), "All day: Mother's Day")
+# draw_text((5, y + 14), "Mother's Day")
 
-y += 35
-draw_text((5, y), "Mon 23 Mar 13:00")
-draw_text((5, y + 14), "Interview 2")
+y += 20
+draw_text((5, y), "13:00: Interview 2")
+# draw_text((5, y + 14), "Interview 2")
 
-# y += 35
+y += 20
 # draw_text((5, y), "Wed 25 Mar 14:00")
-# draw_text((5, y + 14), "1 to 1 - John & Smith")
+draw_text((5, y), "14:00: 1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
