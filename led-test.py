@@ -17,9 +17,6 @@ start_time = time.time()
 
 start_hour = 8
 end_hour = 19
-
-target_time = 14
-
 hours_to_track = (end_hour - start_hour)
 
 leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
@@ -29,8 +26,8 @@ extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
 start_extra = math.floor(extra_leds / 2)
 end_extra = extra_leds - start_extra
 
-
-current_time = datetime.datetime.now()
+current_time_hew = 0.5
+current_time_brightness = 0.9
 
 
 def set_pixel(x, h, s, v):
@@ -38,7 +35,8 @@ def set_pixel(x, h, s, v):
     ledshim.set_pixel(x, r, g, b, v)
 
 
-while True:
+def update_led_row():
+    current_time = datetime.datetime.now()
     for x in range(ledshim.NUM_PIXELS):
         if (x < start_extra):
             set_pixel(x, 0.2, 1, 0.4)
@@ -48,42 +46,30 @@ while True:
             set_pixel(x, 0.2, 1, 0.4)
 
         if leds_per_hour == 1:
-            set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
+            set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
         elif leds_per_hour == 2:
             if current_time.minute >= 30:
-                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, 0.5, 1, 0.9)
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
             else:
-                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
-
-
-
-    ledshim.show()
-
-    time.sleep(0.1)
-
-
-while True:
-    for x in range(ledshim.NUM_PIXELS):
-        if x == target_time:
-            val = 0.8
-        elif x > target_time:
-            val = 0.4
-        else:
-            val = 0.5
-
-        sat = 1.0
-        hue = 0.5
-
-        r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hue, sat, val)]
-        ledshim.set_pixel(x, r, g, b, val)
-
-    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(0.2, 1.0, 1)]
-    ledshim.set_pixel(20, r, g, b, 0.8)
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
+        elif leds_per_hour == 3:
+            if current_time.minute >= 40:
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 2, current_time_hew, 1, current_time_brightness)
+            elif current_time.minute >= 20:
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, current_time_hew, 1, current_time_brightness)
+            else:
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
 
     ledshim.show()
 
-    time.sleep(0.1)
 
+
+
+
+if __name__ == '__main__':
+    while True:
+        update_led_row()
+        time.sleep(1)
 
 
 
