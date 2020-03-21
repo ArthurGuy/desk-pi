@@ -2,3 +2,4 @@ google
 google-api-python-client
 google-auth-oauthlib
 slackclient
+inky
