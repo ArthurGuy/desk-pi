@@ -32,7 +32,10 @@ work_day_hew = 0.9
 work_day_brightness = 0.6
 edge_hew = 0.2
 edge_brightness = 0.5
+event_hew = 0
+event_brightness = 1
 
+event_times = [{'start': '15:00', 'duration': '1:00'}]
 
 def set_pixel(x, h, s, v):
     r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
@@ -55,6 +58,11 @@ def update_led_row():
             set_pixel(x, work_day_hew, 1, work_day_brightness)
         else:
             set_pixel(x, edge_hew, 1, edge_brightness)
+
+        for event in event_times:
+            event_hour = int(event.get('start').split(':')[0])
+            event_minute = int(event.get('start').split(':')[1])
+            set_pixel(start_extra + (leds_per_hour * (event_hour - start_hour)), event_hew, 1, event_brightness)
 
         # Colour in the current time marker
         if working_hours:
