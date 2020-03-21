@@ -31,8 +31,8 @@ end_extra = extra_leds - start_extra
 
 
 def set_pixel(x, h, s, v):
-    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(0.2, 1.0, 1)]
-    ledshim.set_pixel(20, r, g, b, 0.8)
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
+    ledshim.set_pixel(x, r, g, b, v)
 
 
 while True:
