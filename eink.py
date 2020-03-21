@@ -17,6 +17,27 @@ hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
 img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
 draw = ImageDraw.Draw(img)
 
+
+
+def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_display.RED)):
+    """Create a transparency mask.
+    Takes a paletized source image and converts it into a mask
+    permitting all the colours supported by Inky pHAT (0, 1, 2)
+    or an optional list of allowed colours.
+    :param mask: Optional list of Inky pHAT colours to allow.
+    """
+    mask_image = Image.new("1", source.size)
+    w, h = source.size
+    for x in range(w):
+        for y in range(h):
+            p = source.getpixel((x, y))
+            if p in mask:
+                mask_image.putpixel((x, y), 255)
+
+    return mask_image
+
+
+
 inky_display.set_border(inky_display.RED)
 
 
@@ -33,7 +54,8 @@ for y in range(21, 30):
         img.putpixel((x, y), inky_display.BLACK)
 
 tree = Image.open(os.path.join(PATH, "tree.png"))
-img.paste(tree, (60, 60))
+tree_mask = create_mask(tree)
+img.paste(tree, (60, 60), tree_mask)
 
 hello_w, hello_h = hanken_bold_font.getsize("Hello")
 hello_x = 0
