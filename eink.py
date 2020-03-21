@@ -50,7 +50,7 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     draw = ImageDraw.Draw(mask)
     draw.text((0, 0), text, 1, font)
     mask = mask.rotate(rotation, expand=True)
-    inky_display.paste(colour, position, mask)
+    img.paste(colour, position, mask)
 
 
 inky_display.set_border(inky_display.BLACK)
