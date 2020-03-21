@@ -85,12 +85,17 @@ inky_display.set_border(inky_display.BLACK)
 # draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
 # draw_text((80, 20), "World", rotation=90)
 
-draw_text((0, 0), "Sun 22 Mar 00:00")
-draw_text((0, 14), "Mother's Day")
-draw_text((0, 30), "Mon 23 Mar 13:00")
-draw_text((0, 44), "Interview 2")
-draw_text((0, 60), "Wed 25 Mar 14:00")
-draw_text((0, 74), "1 to 1 - John & Smith")
+y = 0
+draw_text((0, y), "Sun 22 Mar 00:00")
+draw_text((0, y + 14), "Mother's Day")
+
+y += 35
+draw_text((0, y), "Mon 23 Mar 13:00")
+draw_text((0, y + 14), "Interview 2")
+
+y += 35
+draw_text((0, y), "Wed 25 Mar 14:00")
+draw_text((0, y + 14), "1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
