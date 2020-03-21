@@ -104,7 +104,7 @@ y += 18
 draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
 for y in range(80, inky_display.height):
-    for x in range(130 + (y - 80), inky_display.width):
+    for x in range(130 - (y - 80), inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
 draw_text((130, 85), "21st March", colour=inky_display.WHITE)
 
