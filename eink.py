@@ -14,7 +14,7 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
-hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(15))
+hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 
 
 # Canvas
@@ -88,7 +88,7 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
 y = 0
 
 draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
-draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED)
+draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
 y += 35
 draw_text((5, y), "Sun 22 Mar - All day")
