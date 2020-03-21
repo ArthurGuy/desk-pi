@@ -16,7 +16,7 @@ ledshim.NUM_PIXELS // 28
 start_time = time.time()
 
 start_hour = 8
-end_hour = 20
+end_hour = 19
 hours_to_track = (end_hour - start_hour)
 
 leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
