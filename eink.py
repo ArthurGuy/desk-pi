@@ -14,7 +14,7 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
-hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(15))
+hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(12))
 
 
 # Canvas
@@ -85,10 +85,10 @@ inky_display.set_border(inky_display.BLACK)
 draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
 draw_text((80, 20), "World", rotation=90)
 
-draw_text((0, 0), "Sunday 22 March 2020 00:00 Mother's Day")
-draw_text((0, 20), "Monday 23 March 2020 13:00 Interview 1")
-draw_text((0, 40), "Monday 23 March 2020 14:30 Interview 2")
-draw_text((0, 60), "Wednesday 25 March 2020 14:00 1 to 1 - John & Smith")
+draw_text((0, 0), "Sun 22 Mar 00:00 Mother's Day")
+draw_text((0, 20), "Mon 23 Mar 13:00 Interview 1")
+draw_text((0, 40), "Mon 23 Mar 14:30 Interview 2")
+draw_text((0, 60), "Wed 25 Mar 14:00 1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
