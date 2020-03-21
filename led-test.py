@@ -28,6 +28,10 @@ end_extra = extra_leds - start_extra
 
 current_time_hew = 0.5
 current_time_brightness = 0.9
+work_day_hew = 0.9
+work_day_brightness = 0.7
+edge_hew = 0.2
+edge_brightness = 0.4
 
 
 def set_pixel(x, h, s, v):
@@ -37,14 +41,17 @@ def set_pixel(x, h, s, v):
 
 def update_led_row():
     current_time = datetime.datetime.now()
-    for x in range(ledshim.NUM_PIXELS):
-        if (x < start_extra):
-            set_pixel(x, 0.2, 1, 0.4)
-        elif (x < start_extra + leds_for_all_hours):
-            set_pixel(x, 0.9, 1, 0.7)
-        else:
-            set_pixel(x, 0.2, 1, 0.4)
 
+    # Create the time outline
+    for x in range(ledshim.NUM_PIXELS):
+        if x < start_extra:
+            set_pixel(x, edge_hew, 1, edge_brightness)
+        elif x < (start_extra + leds_for_all_hours):
+            set_pixel(x, work_day_hew, 1, work_day_brightness)
+        else:
+            set_pixel(x, edge_hew, 1, edge_brightness)
+
+        # Colour in the current time marker
         if leds_per_hour == 1:
             set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), current_time_hew, 1, current_time_brightness)
         elif leds_per_hour == 2:
