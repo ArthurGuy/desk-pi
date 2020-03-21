@@ -47,9 +47,15 @@ while True:
         else:
             set_pixel(x, 0.2, 1, 0.4)
 
-        set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
-        if current_time.minute >= 30:
-            set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, 0.5, 1, 0.9)
+        if leds_per_hour == 1:
+            set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
+        elif leds_per_hour == 2:
+            if current_time.minute >= 30:
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, 0.5, 1, 0.9)
+            else:
+                set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
+
+
 
     ledshim.show()
 
