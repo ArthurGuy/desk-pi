@@ -8,6 +8,9 @@ PATH = os.path.dirname(__file__)
 
 inky_display = InkyPHAT('black')
 
+# inky_display.h_flip = True
+# inky_display.v_flip = True
+
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
@@ -37,6 +40,17 @@ def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_displ
 
     return mask_image
 
+
+def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
+    x, y = position
+    if font is None:
+        font = inky_display.ImageFont.truetype(inky_display.fonts.PressStart2P, 12)
+    w, h = font.getsize(text)
+    mask = inky_display.Image.new('1', (w, h))
+    draw = inky_display.ImageDraw.Draw(mask)
+    draw.text((0, 0), text, 1, font)
+    mask = mask.rotate(rotation, expand=True)
+    inky_display.paste(colour, position, mask)
 
 
 inky_display.set_border(inky_display.BLACK)
@@ -68,6 +82,8 @@ busy_x = 0
 busy_y = 0
 draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
 
+draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
+draw_text((80, 20), "World", rotation=90)
 
 inky_display.set_image(img)
 inky_display.show()
