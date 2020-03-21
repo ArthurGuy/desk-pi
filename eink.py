@@ -44,7 +44,7 @@ def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_displ
 def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     x, y = position
     if font is None:
-        font = ImageFont.truetype(inky_display.fonts.PressStart2P, 12)
+        font = hanken_label_font
     w, h = font.getsize(text)
     mask = inky_display.Image.new('1', (w, h))
     draw = inky_display.ImageDraw.Draw(mask)
