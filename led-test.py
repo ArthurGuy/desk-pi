@@ -18,7 +18,7 @@ target_time = 16
 while True:
     for x in range(ledshim.NUM_PIXELS):
         if x == target_time:
-            val = 0.7
+            val = 0.8
         elif x > target_time:
             val = 0.4
         else:
