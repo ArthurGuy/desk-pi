@@ -30,7 +30,7 @@ start_extra = math.floor(extra_leds / 2)
 end_extra = extra_leds - start_extra
 
 
-time = datetime.datetime.now()
+current_time = datetime.datetime.now()
 
 
 def set_pixel(x, h, s, v):
@@ -47,7 +47,7 @@ while True:
         else:
             set_pixel(x, 0.2, 1, 0.4)
 
-        set_pixel(start_extra + (leds_per_hour * (time.hour - start_hour)), 0.5, 1, 0.9)
+        set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
 
     ledshim.show()
 
