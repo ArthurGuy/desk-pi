@@ -42,7 +42,7 @@ def set_pixel(x, h, s, v):
 def update_led_row():
     current_time = datetime.datetime.now()
 
-    if current_time.hour >= start_hour and current_time.hour <= end_hour:
+    if current_time.hour >= start_hour and current_time.hour < end_hour:
         working_hours = True
     else:
         working_hours = False
