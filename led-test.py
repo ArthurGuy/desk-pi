@@ -37,6 +37,7 @@ event_brightness = 1
 
 event_times = [{'start': '15:00', 'minute_duration': '60'}]
 
+
 def set_pixel(x, h, s, v):
     r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
     ledshim.set_pixel(x, r, g, b, v)
@@ -62,14 +63,12 @@ def highlight_time(hour, minute, minute_duration, hew, brightness):
         else:
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
         num_leds = math.floor(minute_duration / 20)
+
     if pixel is not None:
-        set_pixel(pixel, hew, 1, brightness)
-        if num_leds > 1:
-            set_pixel(pixel + 1, hew, 1, brightness)
-        if num_leds > 2:
-            set_pixel(pixel + 2, hew, 1, brightness)
-        if num_leds > 3:
-            set_pixel(pixel + 3, hew, 1, brightness)
+        # set_pixel(pixel, hew, 1, brightness)
+        # if num_leds > 1:
+        for x in range(num_leds):
+            set_pixel(pixel + x, hew, 1, brightness)
 
 
 def update_led_row():
