@@ -35,22 +35,25 @@ edge_brightness = 0.5
 event_hew = 0
 event_brightness = 1
 
-event_times = [{'start': '15:00', 'duration': '1:00'}]
+event_times = [{'start': '15:00', 'minute_duration': '60'}]
 
 def set_pixel(x, h, s, v):
     r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(h, s, v)]
     ledshim.set_pixel(x, r, g, b, v)
 
 
-def highlight_time(hour, minute, hew, brightness):
+def highlight_time(hour, minute, minute_duration, hew, brightness):
     pixel = None
+    num_leds = 1
     if leds_per_hour == 1:
         pixel = start_extra + (leds_per_hour * (hour - start_hour))
+        num_leds = math.floor(minute_duration / 60)
     elif leds_per_hour == 2:
         if minute >= 30:
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
+        num_leds = math.floor(minute_duration / 30)
     elif leds_per_hour == 3:
         if minute >= 40:
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 2
@@ -58,8 +61,15 @@ def highlight_time(hour, minute, hew, brightness):
             pixel = start_extra + (leds_per_hour * (hour - start_hour)) + 1
         else:
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
+        num_leds = math.floor(minute_duration / 20)
     if pixel is not None:
         set_pixel(pixel, hew, 1, brightness)
+        if num_leds > 1:
+            set_pixel(pixel + 1, hew, 1, brightness)
+        if num_leds > 2:
+            set_pixel(pixel + 2, hew, 1, brightness)
+        if num_leds > 3:
+            set_pixel(pixel + 3, hew, 1, brightness)
 
 
 def update_led_row():
@@ -83,7 +93,8 @@ def update_led_row():
         for event in event_times:
             event_hour = int(event.get('start').split(':')[0])
             event_minute = int(event.get('start').split(':')[1])
-            highlight_time(event_hour, event_minute, event_hew, event_brightness)
+            minute_duration = int(event.get('minute_duration'))
+            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
 
         # Colour in the current time marker
         if working_hours:
