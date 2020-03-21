@@ -11,6 +11,7 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
+hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(10))
 
 
 # Canvas
@@ -53,14 +54,19 @@ for y in range(21, 30):
     for x in range(0, inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
 
-tree = Image.open(os.path.join(PATH, "tree.png"))
-tree_mask = create_mask(tree, mask=(inky_display.WHITE, inky_display.BLACK))
-img.paste(tree, (60, 60), tree_mask)
+# tree = Image.open(os.path.join(PATH, "tree.png"))
+# tree_mask = create_mask(tree, mask=(inky_display.WHITE, inky_display.BLACK))
+# img.paste(tree, (60, 60), tree_mask)
 
 hello_w, hello_h = hanken_bold_font.getsize("Hello")
 hello_x = 0
 hello_y = 30
 draw.text((hello_x, hello_y), "Hello", inky_display.BLACK, font=hanken_bold_font)
+
+busy_w, busy_h = hanken_label_font.getsize("Busy")
+busy_x = 60
+busy_y = 60
+draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
 
 
 inky_display.set_image(img)
