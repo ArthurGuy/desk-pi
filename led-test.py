@@ -95,7 +95,7 @@ def update_led_row():
         event_hour = int(event.get('start').split(':')[0])
         event_minute = int(event.get('start').split(':')[1])
         minute_duration = int(event.get('minute_duration'))
-        if event_hour < current_time.hour or event_minute < current_time.minute:
+        if event_hour < current_time.hour or (event_hour == current_time.hour and event_minute < current_time.minute):
             highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness * 0.5)
         else:
             highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
