@@ -82,13 +82,13 @@ inky_display.set_border(inky_display.BLACK)
 # busy_y = 0
 # draw.text((busy_x, busy_y), "Busy", inky_display.BLACK, font=hanken_label_font)
 
-draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
-draw_text((80, 20), "World", rotation=90)
+# draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
+# draw_text((80, 20), "World", rotation=90)
 
 draw_text((0, 0), "Sun 22 Mar 00:00 Mother's Day")
-draw_text((0, 20), "Mon 23 Mar 13:00 Interview 1")
-draw_text((0, 40), "Mon 23 Mar 14:30 Interview 2")
-draw_text((0, 60), "Wed 25 Mar 14:00 1 to 1 - John & Smith")
+draw_text((0, 15), "Mon 23 Mar 13:00 Interview 1")
+draw_text((0, 30), "Mon 23 Mar 14:30 Interview 2")
+draw_text((0, 45), "Wed 25 Mar 14:00 \n 1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
