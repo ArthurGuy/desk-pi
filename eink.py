@@ -87,20 +87,20 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
 
 y = 0
 
-draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
-draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
+# draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
+# draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
-y = 35
+y = 5
 draw_text((5, y), "All day: Mother's Day")
-# draw_text((5, y + 14), "Mother's Day")
 
 y += 18
-draw_text((5, y), "13:00: Interview 2")
-# draw_text((5, y + 14), "Interview 2")
+draw_text((5, y), "13:00: Interview 2", font=hanken_bold_font)
 
 y += 18
-# draw_text((5, y), "Wed 25 Mar 14:00")
-draw_text((5, y), "14:00: 1 to 1 - John & Smith")
+draw_text((5, y), "14:00: Project A review meeting")
+
+y += 18
+draw_text((5, y), "16:00: 1 to 1 - John & Smith")
 
 inky_display.set_image(img)
 inky_display.show()
