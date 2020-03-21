@@ -90,15 +90,15 @@ def update_led_row():
         else:
             set_pixel(x, edge_hew, 1, edge_brightness)
 
-        for event in event_times:
-            event_hour = int(event.get('start').split(':')[0])
-            event_minute = int(event.get('start').split(':')[1])
-            minute_duration = int(event.get('minute_duration'))
-            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
+    for event in event_times:
+        event_hour = int(event.get('start').split(':')[0])
+        event_minute = int(event.get('start').split(':')[1])
+        minute_duration = int(event.get('minute_duration'))
+        highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
 
-        # Colour in the current time marker
-        if working_hours:
-            highlight_time(current_time.hour, current_time.minute, None, current_time_hew, current_time_brightness, 0)
+    # Colour in the current time marker
+    if working_hours:
+        highlight_time(current_time.hour, current_time.minute, None, current_time_hew, current_time_brightness, 0)
 
     ledshim.show()
 
