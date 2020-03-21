@@ -27,7 +27,7 @@ start_extra = math.floor(extra_leds / 2)
 end_extra = extra_leds - start_extra
 
 current_time_hew = 0.5
-current_time_brightness = 0.9
+current_time_brightness = 1
 work_day_hew = 0.9
 work_day_brightness = 0.6
 edge_hew = 0.2
