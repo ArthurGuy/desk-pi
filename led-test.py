@@ -13,9 +13,13 @@ ledshim.set_clear_on_exit()
 
 start_time = time.time()
 
+target_time = 20
+
 while True:
     for x in range(ledshim.NUM_PIXELS):
-        if x > 20:
+        if x == target_time:
+            val = 0.9
+        elif x > target_time:
             val = 0.4
         else:
             val = 0.7
