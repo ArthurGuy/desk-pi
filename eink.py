@@ -90,15 +90,15 @@ y = 0
 draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
 draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
-y += 25
+y = 35
 draw_text((5, y), "All day: Mother's Day")
 # draw_text((5, y + 14), "Mother's Day")
 
-y += 20
+y += 18
 draw_text((5, y), "13:00: Interview 2")
 # draw_text((5, y + 14), "Interview 2")
 
-y += 20
+y += 18
 # draw_text((5, y), "Wed 25 Mar 14:00")
 draw_text((5, y), "14:00: 1 to 1 - John & Smith")
 
