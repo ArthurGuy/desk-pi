@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import math
 import time
+import datetime
 import colorsys
 import math
 import ledshim
@@ -16,11 +16,11 @@ ledshim.NUM_PIXELS // 28
 start_time = time.time()
 
 start_hour = 8
-end_hour = 6
+end_hour = 18
 
-target_time = 4
+target_time = 14
 
-hours_to_track = (12 - start_hour) + end_hour + 1
+hours_to_track = (end_hour - start_hour) + 1
 
 leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
 leds_for_all_hours = leds_per_hour * hours_to_track
@@ -28,6 +28,9 @@ extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
 
 start_extra = math.floor(extra_leds / 2)
 end_extra = extra_leds - start_extra
+
+
+time = datetime.datetime.now()
 
 
 def set_pixel(x, h, s, v):
@@ -43,6 +46,9 @@ while True:
             set_pixel(x, 0.9, 1, 0.7)
         else:
             set_pixel(x, 0.2, 1, 0.4)
+
+        set_pixel(start_extra + (leds_per_hour * (time.hour - start_hour)), 0.5, 1, 0.9)
+
     ledshim.show()
 
     time.sleep(0.1)
