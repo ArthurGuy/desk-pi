@@ -14,7 +14,7 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(35))
-hanken_label_font = ImageFont.truetype(HankenGroteskBold, int(13))
+hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 
 
 # Canvas
