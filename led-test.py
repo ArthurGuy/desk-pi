@@ -90,11 +90,15 @@ def update_led_row():
         else:
             set_pixel(x, edge_hew, 1, edge_brightness)
 
+    # Colour in events
     for event in event_times:
         event_hour = int(event.get('start').split(':')[0])
         event_minute = int(event.get('start').split(':')[1])
         minute_duration = int(event.get('minute_duration'))
-        highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
+        if event_hour < current_time.hour or event_minute < current_time.minute:
+            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness * 0.5)
+        else:
+            highlight_time(event_hour, event_minute, minute_duration, event_hew, event_brightness)
 
     # Colour in the current time marker
     if working_hours:
