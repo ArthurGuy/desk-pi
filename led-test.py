@@ -16,7 +16,7 @@ ledshim.NUM_PIXELS // 28
 start_time = time.time()
 
 start_hour = 8
-end_hour = 18
+end_hour = 19
 
 target_time = 14
 
@@ -48,6 +48,8 @@ while True:
             set_pixel(x, 0.2, 1, 0.4)
 
         set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)), 0.5, 1, 0.9)
+        if current_time.minute >= 30:
+            set_pixel(start_extra + (leds_per_hour * (current_time.hour - start_hour)) + 1, 0.5, 1, 0.9)
 
     ledshim.show()
 
