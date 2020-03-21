@@ -38,12 +38,12 @@ def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_displ
 
 
 
-inky_display.set_border(inky_display.RED)
+inky_display.set_border(inky_display.BLACK)
 
 
-for y in range(0, 10):
-    for x in range(0, inky_display.width):
-        img.putpixel((x, y), inky_display.RED)
+# for y in range(0, 10):
+#     for x in range(0, inky_display.width):
+#         img.putpixel((x, y), inky_display.RED)
 
 for y in range(11, 20):
     for x in range(0, inky_display.width):
@@ -54,7 +54,7 @@ for y in range(21, 30):
         img.putpixel((x, y), inky_display.BLACK)
 
 tree = Image.open(os.path.join(PATH, "tree.png"))
-tree_mask = create_mask(tree)
+tree_mask = create_mask(tree, mask=(inky_display.WHITE, inky_display.BLACK))
 img.paste(tree, (60, 60), tree_mask)
 
 hello_w, hello_h = hanken_bold_font.getsize("Hello")
