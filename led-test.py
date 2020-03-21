@@ -16,12 +16,12 @@ start_time = time.time()
 while True:
     for x in range(ledshim.NUM_PIXELS):
         if x > 20:
-            val = 0.5
+            val = 0.4
         else:
-            val = 1.0
+            val = 0.7
 
         sat = 1.0
-        hue = 120
+        hue = 240
 
         r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hue, sat, val)]
         ledshim.set_pixel(x, r, g, b, val)
