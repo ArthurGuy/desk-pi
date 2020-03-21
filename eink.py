@@ -46,8 +46,8 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     if font is None:
         font = hanken_label_font
     w, h = font.getsize(text)
-    mask = inky_display.Image.new('1', (w, h))
-    draw = inky_display.ImageDraw.Draw(mask)
+    mask = Image.new('1', (w, h))
+    draw = ImageDraw.Draw(mask)
     draw.text((0, 0), text, 1, font)
     mask = mask.rotate(rotation, expand=True)
     inky_display.paste(colour, position, mask)
