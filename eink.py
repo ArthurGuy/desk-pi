@@ -35,5 +35,5 @@ hello_y = 30
 draw.text((hello_x, hello_y), "Hello", inky_display.BLACK, font=hanken_bold_font)
 
 
-
+inky_display.set_image(img)
 inky_display.show()
