@@ -28,11 +28,11 @@ end_extra = extra_leds - start_extra
 
 current_time_hew = 0.5
 current_time_brightness = 1
-work_day_hew = 0.9
+work_day_hew = 0.8
 work_day_brightness = 0.6
 edge_hew = 0.2
 edge_brightness = 0
-event_hew = 0
+event_hew = 0.2
 event_brightness = 1
 event_brightness_past = 0.6
 
