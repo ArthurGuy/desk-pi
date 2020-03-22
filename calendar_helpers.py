@@ -57,16 +57,31 @@ def get_calendar_items(calendarId):
     return eventList
 
 
-def get_all_calendar_items():
+def get_all_calendar_items(today_only=False, tomorrow_only=False):
+    today = datetime.datetime.now()
+    tomorrow = today + datetime.timedelta(days=1)
     eventList = get_calendar_items("vestd") + get_calendar_items("personal")
     eventList = sorted(eventList, key=lambda event: event.get('start_time'))
-    return eventList
+
+    if not today_only and not tomorrow_only:
+        return eventList
+
+    filtered_list = []
+    for event in eventList:
+        start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+        if today_only and start_time.date() == today.date():
+            filtered_list.append(event)
+        elif tomorrow_only and start_time.date() == tomorrow.date():
+            filtered_list.append(event)
+
+    return filtered_list
 
 
 if __name__ == '__main__':
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
-    eventList = get_all_calendar_items()
+    eventList = get_all_calendar_items(tomorrow_only=True)
+    print(eventList)
     for event in eventList:
         start_time = datetime.datetime.fromisoformat(event.get('start_time'))
         if start_time.date() == today.date():

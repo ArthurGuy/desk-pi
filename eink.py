@@ -115,17 +115,17 @@ def generate_calendar_text(event):
 
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
-events = get_all_calendar_items()
+
 working_day_ended = True
+if working_day_ended:
+    events = get_all_calendar_items(tomorrow_only=True)
+else:
+    events = get_all_calendar_items(today_only=True)
+
 y += 5
 for event in events:
-    start_time = datetime.datetime.fromisoformat(event.get('start_time'))
-    if working_day_ended and start_time.date() == tomorrow.date():
-        draw_text((5, y), generate_calendar_text(event))
-        y += 18
-    elif working_day_ended is False and start_time.date() == today.date():
-        draw_text((5, y), generate_calendar_text(event))
-        y += 18
+    draw_text((5, y), generate_calendar_text(event))
+    y += 18
 
 
 # Dispay the date in the bottom right on a black background
