@@ -118,7 +118,7 @@ for event in events:
             text = start_time.strftime("%H:%M ")
         draw_text((0, y), text + event.get('summary'))
         y += 18
-    elif start_time.date() == today.date():
+    elif working_day_ended is False and start_time.date() == today.date():
         if event.get('duration') == 0:
             text = 'All day: '
         else:
