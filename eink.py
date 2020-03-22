@@ -117,7 +117,7 @@ def generate_calendar_text(event):
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
 
-working_day_ended = True
+working_day_ended = False
 if working_day_ended:
     events = get_all_calendar_items(tomorrow_only=True)
 else:
