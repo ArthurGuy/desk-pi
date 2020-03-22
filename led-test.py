@@ -84,14 +84,17 @@ def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturat
             event_pixels.append(pixel + x)
 
 
-def highlight_current_time(hour, minute, minute_duration):
-    pixels = determine_highlight_pixels(hour, minute, minute_duration)
+def highlight_current_time(hour, minute):
+    pixels = determine_highlight_pixels(hour, minute, None)
     num_leds = len(pixels)
     pixel = pixels[0]
 
     if pixel is not None:
         for x in range(num_leds):
-            set_pixel(pixel + x, current_time_hew, 0, current_time_brightness)
+            if (pixel + x) in event_pixels:
+                set_pixel(pixel + x, event_hew, 1, current_time_brightness)
+            else:
+                set_pixel(pixel + x, current_time_hew, 0, current_time_brightness)
 
 
 def update_led_row():
@@ -124,7 +127,7 @@ def update_led_row():
 
     # Colour in the current time marker
     if working_hours:
-        highlight_current_time(current_time.hour, current_time.minute, None)
+        highlight_current_time(current_time.hour, current_time.minute)
 
     ledshim.show()
 
