@@ -104,11 +104,10 @@ y += 18
 draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
 date_text = "22/03/2020"
-date_text_width, date_text_height = hanken_label_font.getsize(date_text)
 for y in range(80, inky_display.height):
-    for x in range(130 - (y - 80), inky_display.width):
+    for x in range(135 - (y - 80), inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
-draw_text((inky_display.width - date_text_width, 85), date_text, colour=inky_display.WHITE)
+draw_text((135, 85), date_text, colour=inky_display.WHITE)
 
 # for y in range(100, inky_display.height):
 #     for x in range(0, inky_display.width):
