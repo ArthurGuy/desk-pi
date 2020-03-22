@@ -1,8 +1,9 @@
 import os
+import datetime
 from inky import InkyPHAT
 from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
-
+from calendar_helpers import get_all_calendar_items
 
 PATH = os.path.dirname(__file__)
 
@@ -93,15 +94,23 @@ y = 0
 y = 0
 draw_text((0, y), "All day Mother's Day")
 
-y += 18
-draw_text((0, y), "13:00 Interview 2")
+# y += 18
+# draw_text((0, y), "13:00 Interview 2")
+#
+# y += 18
+# draw_text((0, y), "14:00 Project A review meeting", font=hanken_bold_font)
+# y += 3
+#
+# y += 18
+# draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
-y += 18
-draw_text((0, y), "14:00 Project A review meeting", font=hanken_bold_font)
-y += 3
 
-y += 18
-draw_text((0, y), "16:00 1 to 1 - John & Smith")
+events = get_all_calendar_items()
+for event in events:
+    start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+    y += 18
+    draw_text((0, y), start_time.strftime("%H:%M") + event.get('summary'))
+    # print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
 
 
 # Dispay the date in the bottom right on a black background

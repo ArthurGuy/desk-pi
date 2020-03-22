@@ -52,13 +52,22 @@ def get_calendar_items(calendarId):
         # print(start, event['organizer'].get('email'), event['summary'], event['attendees'])
         eventData = {'summary': event['summary'], 'start_time': start, 'end_time': end, 'duration': duration, 'organizer': event['organizer'].get('email'), 'attendees': attendees}
         eventList.append(eventData)
-        print(eventData)
+        # print(eventData)
 
     return eventList
 
-if __name__ == '__main__':
+
+def get_all_calendar_items():
     eventList = get_calendar_items("vestd") + get_calendar_items("personal")
     eventList = sorted(eventList, key=lambda event: event.get('start_time'))
+    return eventList
+
+
+if __name__ == '__main__':
+    today = datetime.datetime.now()
+    tomorrow = today + datetime.timedelta(days=1)
+    eventList = get_all_calendar_items()
     for event in eventList:
         start_time = datetime.datetime.fromisoformat(event.get('start_time'))
-        print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
+        if start_time.date() == today.date():
+            print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
