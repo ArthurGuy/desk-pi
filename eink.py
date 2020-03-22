@@ -112,8 +112,8 @@ for event in events:
         text = 'All day '
     else:
         text = start_time.strftime("%H:%M ")
-    y += 18
     draw_text((0, y), text + event.get('summary'))
+    y += 18
     # print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
 
 
@@ -122,7 +122,7 @@ date_text = "22/03/2020"
 for y in range(85, inky_display.height):
     for x in range(135 - (y - 85), inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
-draw_text((135, 87), date_text, colour=inky_display.WHITE)
+draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
 
 inky_display.set_image(img)
