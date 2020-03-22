@@ -43,20 +43,22 @@ def get_calendar_items(calendarId):
     if not events:
         print('No upcoming events found.')
     for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
+        start = event['start'].get('dateTime', event['start'].get('date')).replace("Z", "+00:00")
+        end = event['end'].get('dateTime', event['end'].get('date')).replace("Z", "+00:00")
+        duration = int((datetime.datetime.fromisoformat(end) - datetime.datetime.fromisoformat(start)).seconds / 60)
         attendees = []
         for person in event.get('attendees', []):
             attendees.append({'name': person.get('displayName', person.get('email')), 'response': person.get('responseStatus')})
         # print(start, event['organizer'].get('email'), event['summary'], event['attendees'])
-        eventData = {'summary': event['summary'], 'date': start, 'organizer': event['organizer'].get('email'), 'attendees': attendees}
+        eventData = {'summary': event['summary'], 'start_time': start, 'end_time': end, 'duration': duration, 'organizer': event['organizer'].get('email'), 'attendees': attendees}
         eventList.append(eventData)
-        # print(eventData)
+        print(eventData)
 
     return eventList
 
 if __name__ == '__main__':
     eventList = get_calendar_items("vestd") + get_calendar_items("personal")
-    eventList = sorted(eventList, key=lambda event: event.get('date'))
+    eventList = sorted(eventList, key=lambda event: event.get('start_time'))
     for event in eventList:
-        date = datetime.datetime.fromisoformat(event.get('date').replace("Z", "+00:00"));
-        print(date.strftime("%A %d %B %Y %H:%M"), event.get('summary'))
+        start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+        print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
