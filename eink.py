@@ -157,6 +157,7 @@ def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
     working_day_ended = True
+    led_event_list = []
 
     y = 0
 
@@ -166,10 +167,10 @@ def update_calendar():
     else:
         events = get_all_calendar_items(today_only=True)
 
-    for event in events:
-        start_time = datetime.datetime.fromisoformat(event.get('start_time'))
-        start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
-        led_event_list.append({'start': start_hour, 'duration': event.get('duration')})
+        for event in events:
+            start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+            start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
+            led_event_list.append({'start': start_hour, 'duration': event.get('duration')})
 
     y += 5
 
