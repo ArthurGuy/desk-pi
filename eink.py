@@ -43,7 +43,7 @@ def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_displ
 
 
 def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
-    x, y = position
+    # x, y = position
     if font is None:
         font = hanken_label_font
     w, h = font.getsize(text)
@@ -52,6 +52,20 @@ def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     draw.text((0, 0), text, 1, font)
     mask = mask.rotate(rotation, expand=True)
     img.paste(colour, position, mask)
+
+
+def generate_calendar_text(event):
+    """
+    Generate a text string based on a calendar event
+    :param event:
+    :return string:
+    """
+    start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+    if event.get('duration') == 0:
+        text = 'All day: '
+    else:
+        text = start_time.strftime("%H:%M ")
+    return text + event.get('summary')
 
 
 inky_display.set_border(inky_display.BLACK)
@@ -105,15 +119,6 @@ y = 0
 # draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
 
-def generate_calendar_text(event):
-    start_time = datetime.datetime.fromisoformat(event.get('start_time'))
-    if event.get('duration') == 0:
-        text = 'All day: '
-    else:
-        text = start_time.strftime("%H:%M ")
-    return text + event.get('summary')
-
-
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
 working_day_ended = True
@@ -128,7 +133,7 @@ y += 5
 
 # If we have some events for tomorrow display a heading
 if working_day_ended and len(events):
-    draw_text((5, y), "Tomorrow")
+    draw_text((2, y-3), "Tomorrow")
     y += 20
 
 # Display the list of events
