@@ -195,14 +195,25 @@ def update_calendar():
 
 
 screen_last_updated = None
+screen_day_last_updated = None
 
 
 if __name__ == '__main__':
     while True:
+        update_screen = False
         update_led_row(led_event_list)
 
+        if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
+            update_screen = True
+            # Update each morning to correct today/tomorrow
+
         if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 3600:
+            update_screen = True
+            # Update every hour in case of new events
+
+        if update_screen:
             update_calendar()
             screen_last_updated = datetime.datetime.now()
+            screen_day_last_updated = datetime.datetime.now().day
 
         time.sleep(1)
