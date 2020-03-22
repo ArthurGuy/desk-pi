@@ -133,7 +133,7 @@ def generate_calendar_text(event):
 # draw_text((20, 20), "Hello", colour=inky_display.RED, rotation=45)
 # draw_text((80, 20), "World", rotation=90)
 
-y = 0
+
 
 # draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
 # draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
@@ -156,6 +156,8 @@ def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
     working_day_ended = True
+
+    y = 0
 
     # Fetch todays events or tomorrows events
     if working_day_ended:
