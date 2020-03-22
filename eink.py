@@ -17,12 +17,15 @@ ledshim.set_clear_on_exit()
 
 # Initialise the eink display
 inky_display = InkyPHAT('black')
+inky_display.set_border(inky_display.BLACK)
 # inky_display.h_flip = True
 # inky_display.v_flip = True
+
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
 hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
+
 
 # Canvas
 img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
@@ -54,7 +57,6 @@ edge_brightness = 0
 event_hew = 0.8  # purple
 event_brightness = 1
 event_brightness_past = 0.7
-
 
 
 def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_display.RED)):
@@ -100,8 +102,6 @@ def generate_calendar_text(event):
         text = start_time.strftime("%H:%M ")
     return text + event.get('summary')
 
-
-inky_display.set_border(inky_display.BLACK)
 
 
 # for y in range(0, 10):
@@ -152,38 +152,49 @@ y = 0
 # draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
 
-update_led_row()
+def update_calendar():
+    today = datetime.datetime.now()
+    tomorrow = today + datetime.timedelta(days=1)
+    working_day_ended = True
 
-today = datetime.datetime.now()
-tomorrow = today + datetime.timedelta(days=1)
-working_day_ended = True
+    # Fetch todays events or tomorrows events
+    if working_day_ended:
+        events = get_all_calendar_items(tomorrow_only=True)
+    else:
+        events = get_all_calendar_items(today_only=True)
 
-# Fetch todays events or tomorrows events
-if working_day_ended:
-    events = get_all_calendar_items(tomorrow_only=True)
-else:
-    events = get_all_calendar_items(today_only=True)
+    y += 5
 
-y += 5
+    # If we have some events for tomorrow display a heading
+    if working_day_ended and len(events):
+        draw_text((2, y - 3), "Tomorrow")
+        y += 20
 
-# If we have some events for tomorrow display a heading
-if working_day_ended and len(events):
-    draw_text((2, y-3), "Tomorrow")
-    y += 20
+    # Display the list of events
+    for event in events:
+        draw_text((5, y), generate_calendar_text(event))
+        y += 18
 
-# Display the list of events
-for event in events:
-    draw_text((5, y), generate_calendar_text(event))
-    y += 18
+    # Display the date in the bottom right on a black background
+    date_text = today.strftime("%d/%m/%Y")
+    for y in range(86, inky_display.height):
+        for x in range(138 - (y - 86), inky_display.width):
+            img.putpixel((x, y), inky_display.BLACK)
+    draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
-
-# Display the date in the bottom right on a black background
-date_text = today.strftime("%d/%m/%Y")
-for y in range(86, inky_display.height):
-    for x in range(138 - (y - 86), inky_display.width):
-        img.putpixel((x, y), inky_display.BLACK)
-draw_text((138, 88), date_text, colour=inky_display.WHITE)
+    inky_display.set_image(img)
+    inky_display.show()
 
 
-inky_display.set_image(img)
-inky_display.show()
+screen_last_updated = None
+
+
+if __name__ == '__main__':
+    while True:
+        update_led_row()
+
+        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 60:
+            update_calendar()
+            screen_last_updated = datetime.datetime.now()
+
+        time.sleep(1)
