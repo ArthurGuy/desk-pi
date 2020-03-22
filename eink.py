@@ -108,19 +108,19 @@ y = 0
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
 events = get_all_calendar_items()
-working_day_ended = False
+working_day_ended = True
 for event in events:
     start_time = datetime.datetime.fromisoformat(event.get('start_time'))
     if working_day_ended and start_time.date() == tomorrow.date():
         if event.get('duration') == 0:
-            text = 'All day '
+            text = 'All day: '
         else:
             text = start_time.strftime("%H:%M ")
         draw_text((0, y), text + event.get('summary'))
         y += 18
     elif start_time.date() == today.date():
         if event.get('duration') == 0:
-            text = 'All day '
+            text = 'All day: '
         else:
             text = start_time.strftime("%H:%M ")
         draw_text((0, y), text + event.get('summary'))
