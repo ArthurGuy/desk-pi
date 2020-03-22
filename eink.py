@@ -201,7 +201,7 @@ if __name__ == '__main__':
     while True:
         update_led_row(led_event_list)
 
-        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 60:
+        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 3600:
             update_calendar()
             screen_last_updated = datetime.datetime.now()
 
