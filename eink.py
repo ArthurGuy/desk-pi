@@ -105,25 +105,26 @@ y = 0
 # draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
 
+def generate_calendar_text(event):
+    if event.get('duration') == 0:
+        text = 'All day: '
+    else:
+        text = start_time.strftime("%H:%M ")
+    return text + event.get('summary')
+
+
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
 events = get_all_calendar_items()
 working_day_ended = True
+y += 5
 for event in events:
     start_time = datetime.datetime.fromisoformat(event.get('start_time'))
     if working_day_ended and start_time.date() == tomorrow.date():
-        if event.get('duration') == 0:
-            text = 'All day: '
-        else:
-            text = start_time.strftime("%H:%M ")
-        draw_text((0, y), text + event.get('summary'))
+        draw_text((5, y), generate_calendar_text(event))
         y += 18
     elif working_day_ended is False and start_time.date() == today.date():
-        if event.get('duration') == 0:
-            text = 'All day: '
-        else:
-            text = start_time.strftime("%H:%M ")
-        draw_text((0, y), text + event.get('summary'))
+        draw_text((5, y), generate_calendar_text(event))
         y += 18
 
 
