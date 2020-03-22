@@ -26,13 +26,16 @@ extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
 start_extra = math.floor(extra_leds / 2)
 end_extra = extra_leds - start_extra
 
-current_time_hew = 0.5
+current_time_hew = 0.5  # light blue
 current_time_brightness = 1
-work_day_hew = 0.8
+
+work_day_hew = 0.2  # green/yellow
 work_day_brightness = 0.6
+
 edge_hew = 0.2
 edge_brightness = 0
-event_hew = 0.2
+
+event_hew = 0.8  # purple
 event_brightness = 1
 event_brightness_past = 0.7
 
