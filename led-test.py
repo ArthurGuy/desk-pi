@@ -36,7 +36,7 @@ event_hew = 0.2
 event_brightness = 1
 event_brightness_past = 0.7
 
-event_times = [{'start': '15:00', 'duration': 60}, {'start': '10:00', 'duration': 100}]
+event_times = [{'start': '15:00', 'duration': 60}, {'start': '11:00', 'duration': 100}]
 
 event_pixels = []
 
