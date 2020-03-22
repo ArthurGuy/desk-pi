@@ -92,7 +92,7 @@ def highlight_current_time(hour, minute):
     if pixel is not None:
         for x in range(num_leds):
             if (pixel + x) in event_pixels:
-                set_pixel(pixel + x, event_hew, 1, current_time_brightness)
+                set_pixel(pixel + x, current_time_hew, 1, current_time_brightness)
             else:
                 set_pixel(pixel + x, current_time_hew, 0, current_time_brightness)
 
