@@ -91,8 +91,8 @@ y = 0
 # draw_text((5, y), "Today 14:00", colour=inky_display.RED, font=hanken_bold_font)
 # draw_text((5, y + 14), "Project A review meeting", colour=inky_display.RED, font=hanken_bold_font)
 
-y = 0
-draw_text((0, y), "All day Mother's Day")
+# y = 0
+# draw_text((0, y), "All day Mother's Day")
 
 # y += 18
 # draw_text((0, y), "13:00 Interview 2")
@@ -108,8 +108,12 @@ draw_text((0, y), "All day Mother's Day")
 events = get_all_calendar_items()
 for event in events:
     start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+    if event.get('duration') == 0:
+        text = 'All day '
+    else:
+        text = start_time.strftime("%H:%M ")
     y += 18
-    draw_text((0, y), start_time.strftime("%H:%M") + event.get('summary'))
+    draw_text((0, y), text + event.get('summary'))
     # print(start_time.strftime("%A %d %B %Y %H:%M"), event.get('duration'), event.get('summary'))
 
 
