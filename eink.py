@@ -116,21 +116,29 @@ def generate_calendar_text(event):
 
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
+working_day_ended = True
 
-working_day_ended = False
+# Fetch todays events or tomorrows events
 if working_day_ended:
     events = get_all_calendar_items(tomorrow_only=True)
 else:
     events = get_all_calendar_items(today_only=True)
 
 y += 5
+
+# If we have some events for tomorrow display a heading
+if working_day_ended and len(events):
+    draw_text((5, y), "Tomorrow")
+    y += 20
+
+# Display the list of events
 for event in events:
     draw_text((5, y), generate_calendar_text(event))
     y += 18
 
 
-# Dispay the date in the bottom right on a black background
-date_text = "22/03/2020"
+# Display the date in the bottom right on a black background
+date_text = today.strftime("%d/%m/%Y")
 for y in range(86, inky_display.height):
     for x in range(138 - (y - 86), inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
