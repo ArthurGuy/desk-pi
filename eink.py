@@ -1,26 +1,58 @@
 import os
+import math
+import time
+import ledshim
 import datetime
+import colorsys
 from inky import InkyPHAT
 from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
+import datetime
 
 PATH = os.path.dirname(__file__)
 
-inky_display = InkyPHAT('black')
+ledshim.set_clear_on_exit()
 
+# Initialise the eink display
+inky_display = InkyPHAT('black')
 # inky_display.h_flip = True
 # inky_display.v_flip = True
-
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
 hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 
-
 # Canvas
 img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
 draw = ImageDraw.Draw(img)
+
+
+# Led day display, initialise variables and calculate details
+start_hour = 8
+end_hour = 19
+hours_to_track = (end_hour - start_hour)
+
+leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
+leds_for_all_hours = leds_per_hour * hours_to_track
+extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
+
+start_extra = math.floor(extra_leds / 2)
+
+
+# Colour settings for the led day display
+current_time_hew = 0.5  # light blue
+current_time_brightness = 1
+
+work_day_hew = 0.2  # green/yellow
+work_day_brightness = 0.6
+
+edge_hew = 0.2
+edge_brightness = 0
+
+event_hew = 0.8  # purple
+event_brightness = 1
+event_brightness_past = 0.7
 
 
 
