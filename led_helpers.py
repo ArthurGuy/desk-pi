@@ -31,7 +31,7 @@ event_hew = 0.8  # purple
 event_brightness = 1
 event_brightness_past = 0.7
 
-event_times = [{'start': '15:00', 'duration': 60}, {'start': '12:00', 'duration': 100}]
+# event_times = [{'start': '15:00', 'duration': 60}, {'start': '12:00', 'duration': 100}]
 
 event_pixels = []
 
@@ -92,7 +92,7 @@ def highlight_current_time(hour, minute):
                 set_pixel(pixel + x, current_time_hew, 0, current_time_brightness)
 
 
-def update_led_row():
+def update_led_row(event_times):
     current_time = datetime.datetime.now()
     # current_time = datetime.datetime.fromisoformat('2020-03-21 14:25')
 

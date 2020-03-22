@@ -151,6 +151,7 @@ def generate_calendar_text(event):
 # y += 18
 # draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
+led_event_list = []
 
 def update_calendar():
     today = datetime.datetime.now()
@@ -164,6 +165,11 @@ def update_calendar():
         events = get_all_calendar_items(tomorrow_only=True)
     else:
         events = get_all_calendar_items(today_only=True)
+
+    for event in events:
+        start_time = datetime.datetime.fromisoformat(event.get('start_time'))
+        start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
+        led_event_list.append({'start': start_hour, 'duration': event.get('duration')})
 
     y += 5
 
@@ -193,7 +199,7 @@ screen_last_updated = None
 
 if __name__ == '__main__':
     while True:
-        update_led_row()
+        update_led_row(led_event_list)
 
         if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 60:
             update_calendar()
