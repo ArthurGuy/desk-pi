@@ -103,15 +103,14 @@ y += 3
 y += 18
 draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
+
+# Dispay the date in the bottom right on a black background
 date_text = "22/03/2020"
-for y in range(80, inky_display.height):
+for y in range(82, inky_display.height):
     for x in range(135 - (y - 80), inky_display.width):
         img.putpixel((x, y), inky_display.BLACK)
-draw_text((135, 85), date_text, colour=inky_display.WHITE)
+draw_text((135, 87), date_text, colour=inky_display.WHITE)
 
-# for y in range(100, inky_display.height):
-#     for x in range(0, inky_display.width):
-#         img.putpixel((x, y), inky_display.BLACK)
 
 inky_display.set_image(img)
 inky_display.show()
