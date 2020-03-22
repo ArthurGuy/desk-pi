@@ -8,6 +8,7 @@ from inky import InkyPHAT
 from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
+from led_helpers import update_led_row
 import datetime
 
 PATH = os.path.dirname(__file__)
@@ -150,6 +151,8 @@ y = 0
 # y += 18
 # draw_text((0, y), "16:00 1 to 1 - John & Smith")
 
+
+update_led_row()
 
 today = datetime.datetime.now()
 tomorrow = today + datetime.timedelta(days=1)
