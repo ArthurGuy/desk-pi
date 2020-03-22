@@ -106,6 +106,7 @@ y = 0
 
 
 def generate_calendar_text(event):
+    start_time = datetime.datetime.fromisoformat(event.get('start_time'))
     if event.get('duration') == 0:
         text = 'All day: '
     else:
