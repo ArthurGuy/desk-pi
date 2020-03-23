@@ -153,10 +153,11 @@ def generate_calendar_text(event):
 
 led_event_list = []
 
+
 def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
-    working_day_ended = True
+    working_day_ended = False
     led_event_list = []
 
     y = 0
