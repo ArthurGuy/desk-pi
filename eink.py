@@ -17,7 +17,6 @@ ledshim.set_clear_on_exit()
 
 # Initialise the eink display
 inky_display = InkyPHAT('black')
-inky_display.set_border(inky_display.BLACK)
 # inky_display.h_flip = True
 # inky_display.v_flip = True
 
@@ -200,6 +199,7 @@ def update_calendar():
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
+    inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
 
