@@ -212,12 +212,8 @@ def update_calendar():
 
     # Experiments with fancy sci-fi bits!
     for y in range(86, inky_display.height):
-        if (y - 86) < 10:
-            for x in range(0, y - 86):
-                img.putpixel((x, y), inky_display.BLACK)
-        else:
-            for x in range(0, 10):
-                img.putpixel((x, y), inky_display.BLACK)
+        for x in range(0, 40 - (y - 86)):
+            img.putpixel((x, y), inky_display.BLACK)
 
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
