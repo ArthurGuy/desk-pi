@@ -9,6 +9,7 @@ from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
+from led_helpers import work_day_ended
 import datetime
 
 PATH = os.path.dirname(__file__)
@@ -165,18 +166,18 @@ def clean_display():
 def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
-    working_day_ended = False  # @TODO
-    global led_event_list
+    # work_day_ended = False  # @TODO
+    global led_event_list, work_day_ended
 
     # Fetch todays events or tomorrows events
     try:
-        events = get_all_calendar_items(tomorrow_only=working_day_ended, today_only=not working_day_ended)
+        events = get_all_calendar_items(tomorrow_only=work_day_ended, today_only=not work_day_ended)
     except RuntimeError:
         return False
 
     led_event_list = []
 
-    if not working_day_ended:
+    if not work_day_ended:
         for event in events:
             start_time = datetime.datetime.fromisoformat(event.get('start_time'))
             start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
@@ -186,7 +187,7 @@ def update_calendar():
     y += 5
 
     # If we have some events for tomorrow display a heading
-    if working_day_ended and len(events):
+    if work_day_ended and len(events):
         draw_text((2, y - 3), "Tomorrow")
         y += 20
 
