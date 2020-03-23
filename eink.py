@@ -181,8 +181,8 @@ def update_calendar():
 
     led_event_list = []
 
-    if not work_day_ended:
-        # Capture todays events for the led display
+    if not work_day_ended and not show_tomorrows_events:
+        # If we are still in the working day and we haven't switch to tomorrow capture todays events for the led display
         for event in events:
             start_time = datetime.datetime.fromisoformat(event.get('start_time'))
             start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
