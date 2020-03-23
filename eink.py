@@ -169,7 +169,10 @@ def update_calendar():
     global led_event_list
 
     # Fetch todays events or tomorrows events
-    events = get_all_calendar_items(tomorrow_only=working_day_ended, today_only=not working_day_ended)
+    try:
+        events = get_all_calendar_items(tomorrow_only=working_day_ended, today_only=not working_day_ended)
+    except RuntimeError:
+        return False
 
     led_event_list = []
 
@@ -203,6 +206,8 @@ def update_calendar():
     inky_display.set_image(img)
     inky_display.show()
 
+    return True
+
 
 screen_last_updated = None
 screen_day_last_updated = None
@@ -223,8 +228,9 @@ if __name__ == '__main__':
 
         if update_screen:
             clean_display()
-            update_calendar()
-            screen_last_updated = datetime.datetime.now()
-            screen_day_last_updated = datetime.datetime.now().day
+            update_success = update_calendar()
+            if update_success:
+                screen_last_updated = datetime.datetime.now()
+                screen_day_last_updated = datetime.datetime.now().day
 
         time.sleep(10)
