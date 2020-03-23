@@ -157,7 +157,8 @@ led_event_list = []
 def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
-    working_day_ended = False
+    working_day_ended = False  # @TODO
+    global led_event_list
     led_event_list = []
 
     y = 0
@@ -218,4 +219,4 @@ if __name__ == '__main__':
             screen_last_updated = datetime.datetime.now()
             screen_day_last_updated = datetime.datetime.now().day
 
-        time.sleep(1)
+        time.sleep(10)
