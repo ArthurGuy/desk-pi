@@ -210,6 +210,15 @@ def update_calendar():
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
+    # Experiments with fancy sci-fi bits!
+    for y in range(40, inky_display.height):
+        if (y - 40) < 20:
+            for x in range(0, y - 40):
+                img.putpixel((x, y), inky_display.BLACK)
+        else:
+            for x in range(0, 20):
+                img.putpixel((x, y), inky_display.BLACK)
+
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
