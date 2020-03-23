@@ -179,6 +179,8 @@ def update_calendar():
     except RuntimeError:
         return False
 
+    clean_display()
+
     led_event_list = []
 
     if not work_day_ended and not show_tomorrows_events:
@@ -208,7 +210,6 @@ def update_calendar():
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
-    clean_display()
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
