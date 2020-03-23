@@ -168,21 +168,19 @@ def update_calendar():
     tomorrow = today + datetime.timedelta(days=1)
     working_day_ended = False  # @TODO
     global led_event_list
-    led_event_list = []
-
-    y = 0
 
     # Fetch todays events or tomorrows events
-    if working_day_ended:
-        events = get_all_calendar_items(tomorrow_only=True)
-    else:
-        events = get_all_calendar_items(today_only=True)
+    events = get_all_calendar_items(tomorrow_only=working_day_ended, today_only=not working_day_ended)
 
+    led_event_list = []
+
+    if not working_day_ended:
         for event in events:
             start_time = datetime.datetime.fromisoformat(event.get('start_time'))
             start_hour = str(start_time.time().hour) + ':' + str(start_time.time().minute)
             led_event_list.append({'start': start_hour, 'duration': event.get('duration')})
 
+    y = 0
     y += 5
 
     # If we have some events for tomorrow display a heading
