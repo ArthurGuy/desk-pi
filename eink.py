@@ -154,6 +154,15 @@ def generate_calendar_text(event):
 led_event_list = []
 
 
+def clean_display():
+    inky_display.set_border(inky_display.WHITE)
+    for x in range(inky_display.WIDTH):
+        for y in range(inky_display.HEIGHT):
+            img.putpixel((x, y), inky_display.WHITE)
+    inky_display.set_image(img)
+    inky_display.show()
+
+
 def update_calendar():
     today = datetime.datetime.now()
     tomorrow = today + datetime.timedelta(days=1)
@@ -215,6 +224,7 @@ if __name__ == '__main__':
             # Update every hour in case of new events
 
         if update_screen:
+            clean_display()
             update_calendar()
             screen_last_updated = datetime.datetime.now()
             screen_day_last_updated = datetime.datetime.now().day
