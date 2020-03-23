@@ -200,7 +200,7 @@ def update_calendar():
 
     # Display the list of events
     for event in events:
-        draw_text((5, y), generate_calendar_text(event))
+        draw_text((11, y), generate_calendar_text(event))
         y += 18
 
     # Display the date in the bottom right on a black background
@@ -211,12 +211,12 @@ def update_calendar():
     draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
     # Experiments with fancy sci-fi bits!
-    for y in range(40, inky_display.height):
-        if (y - 40) < 20:
-            for x in range(0, y - 40):
+    for y in range(20, inky_display.height):
+        if (y - 20) < 10:
+            for x in range(0, y - 20):
                 img.putpixel((x, y), inky_display.BLACK)
         else:
-            for x in range(0, 20):
+            for x in range(0, 10):
                 img.putpixel((x, y), inky_display.BLACK)
 
     inky_display.set_border(inky_display.BLACK)
