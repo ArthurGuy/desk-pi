@@ -155,7 +155,7 @@ led_event_list = []
 
 
 def clean_display():
-    inky_display.set_border(inky_display.WHITE)
+    # inky_display.set_border(inky_display.WHITE)
     for x in range(inky_display.WIDTH):
         for y in range(inky_display.HEIGHT):
             img.putpixel((x, y), inky_display.WHITE)
@@ -208,6 +208,7 @@ def update_calendar():
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((138, 88), date_text, colour=inky_display.WHITE)
 
+    clean_display()
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
@@ -233,7 +234,6 @@ if __name__ == '__main__':
             # Update every hour in case of new events
 
         if update_screen:
-            clean_display()
             update_success = update_calendar()
             if update_success:
                 screen_last_updated = datetime.datetime.now()
