@@ -1,0 +1,6 @@
+#!/bin/bash
+cp desk-pi.service /etc/systemd/system/desk-pi.service
+
+systemctl daemon-reload
+
+systemctl restart desk-pi.service
