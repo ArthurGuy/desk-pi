@@ -84,10 +84,9 @@ def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturat
 
     if pixel is not None:
         for x in range(num_leds):
-            if x >= ledshim.NUM_PIXELS:
-                print("Trying to highlight out of range pixel", x)
-            set_pixel(pixel + x, hew, saturation, brightness)
-            event_pixels.append(pixel + x)
+            if x < ledshim.NUM_PIXELS:  # The event might be in the evening and out of range
+                set_pixel(pixel + x, hew, saturation, brightness)
+                event_pixels.append(pixel + x)
 
 
 def highlight_current_time(hour, minute):
@@ -128,6 +127,7 @@ def update_led_row(event_times):
             set_pixel(x, edge_hew, 1, edge_brightness)
 
     # Colour in events
+    # TODO: If event is outside of working day don't include it
     for event in event_times:
         event_hour = int(event.get('start').split(':')[0])
         event_minute = int(event.get('start').split(':')[1])
