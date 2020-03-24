@@ -180,6 +180,10 @@ def update_calendar():
         return False
 
     # clean_display()
+    # Write over the text with a white box
+    for y in range(0, 83):
+        for x in range(0, inky_display.width):
+            img.putpixel((x, y), inky_display.BLACK)
 
 
     led_event_list = []
@@ -218,14 +222,10 @@ def update_calendar():
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((28, 86), day_text, colour=inky_display.BLACK)
 
-    for y in range(85, 86):
+    # bottom dividing line
+    for y in range(83, 86):
         for x in range(0, inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
-
-
-    # for y in range(0, inky_display.height - 20):
-    #     for x in range(0, inky_display.width):
-    #         img.putpixel((x, y), inky_display.BLACK)
 
 
     inky_display.set_border(inky_display.BLACK)
@@ -245,6 +245,7 @@ if __name__ == '__main__':
         update_led_row(led_event_list)
 
         if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
+            clean_display()
             update_screen = True
             # Update each morning to correct today/tomorrow
 
