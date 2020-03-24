@@ -179,7 +179,8 @@ def update_calendar():
     except RuntimeError:
         return False
 
-    clean_display()
+    # clean_display()
+
 
     led_event_list = []
 
@@ -216,6 +217,12 @@ def update_calendar():
         for x in range(0, 10 + (y - 86)):
             img.putpixel((x, y), inky_display.BLACK)
     draw_text((28, 85), day_text, colour=inky_display.BLACK)
+
+
+    for y in range(0, inky_display.height - 30):
+        for x in range(0, inky_display.width):
+            img.putpixel((x, y), inky_display.BLACK)
+            
 
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
