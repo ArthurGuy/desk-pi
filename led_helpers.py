@@ -12,9 +12,11 @@ start_hour = 8
 end_hour = 19
 hours_to_track = (end_hour - start_hour)
 
-leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
+overhang_leds = 2  # Extra LEDs on the right side that are ignored because of alignment
+num_leds = ledshim.NUM_PIXELS - overhang_leds
+leds_per_hour = math.floor(num_leds / hours_to_track)
 leds_for_all_hours = leds_per_hour * hours_to_track
-extra_leds = ledshim.NUM_PIXELS - leds_for_all_hours
+extra_leds = num_leds - leds_for_all_hours
 
 start_extra = math.floor(extra_leds / 2)
 
@@ -120,7 +122,7 @@ def update_led_row(event_times):
         working_hours = False
 
     # Create the time outline
-    for x in range(ledshim.NUM_PIXELS):
+    for x in range(num_leds):
         if x < start_extra:
             set_pixel(x, edge_hew, 1, edge_brightness)
         elif x < (start_extra + leds_for_all_hours):
