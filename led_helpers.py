@@ -87,7 +87,7 @@ def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturat
 
     if pixel is not None:
         for x in range(num_leds):
-            if x < ledshim.NUM_PIXELS:  # The event might be in the evening and out of range
+            if (pixel + x) < ledshim.NUM_PIXELS:  # The event might be in the evening and out of range
                 set_pixel(pixel + x, hew, saturation, brightness)
                 event_pixels.append(pixel + x)
 
