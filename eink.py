@@ -183,7 +183,7 @@ def update_calendar():
     # Write over the text with a white box
     for y in range(0, 83):
         for x in range(0, inky_display.width):
-            img.putpixel((x, y), inky_display.BLACK)
+            img.putpixel((x, y), inky_display.WHITE)
 
 
     led_event_list = []
