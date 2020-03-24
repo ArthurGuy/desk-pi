@@ -40,7 +40,7 @@ event_pixels = []
 
 def set_pixel(x, hew, saturation, brightness):
     r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hew, saturation, brightness)]
-    if x >= ledshim.NUM_PIXELS:
+    if x >= num_leds:
         print("Trying to highlight out of range pixel", x)
         return
     ledshim.set_pixel(x, r, g, b, brightness)
@@ -86,7 +86,7 @@ def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturat
 
     if pixel is not None:
         for x in range(num_leds):
-            if (pixel + x) < ledshim.NUM_PIXELS:  # The event might be in the evening and out of range
+            if (pixel + x) < num_leds:  # The event might be in the evening and out of range
                 set_pixel(pixel + x, hew, saturation, brightness)
                 event_pixels.append(pixel + x)
 
