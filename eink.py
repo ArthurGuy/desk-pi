@@ -215,7 +215,7 @@ def update_calendar():
     for y in range(86, inky_display.height):
         for x in range(0, 10 + (y - 86)):
             img.putpixel((x, y), inky_display.BLACK)
-    draw_text((138, 20), day_text, colour=inky_display.BLACK)
+    draw_text((20, 88), day_text, colour=inky_display.BLACK)
 
     inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
