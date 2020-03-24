@@ -166,7 +166,7 @@ def clean_display():
 def update_calendar():
     today = datetime.datetime.now()
     global led_event_list
-    
+
     _work_day_ended = work_day_ended()
 
     # Fetch todays events or tomorrows events

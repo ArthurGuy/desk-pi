@@ -32,9 +32,6 @@ event_brightness = 1
 event_brightness_past = 0.7
 
 working_hours = True
-# work_day_ended = False
-
-# event_times = [{'start': '15:00', 'duration': 60}, {'start': '12:00', 'duration': 100}]
 
 event_pixels = []
 
@@ -112,20 +109,15 @@ def work_day_ended():
     else:
         return False
 
+
 def update_led_row(event_times):
     global working_hours
     current_time = datetime.datetime.now()
-    # current_time = datetime.datetime.fromisoformat('2020-03-21 14:25')
 
     if start_hour <= current_time.hour < end_hour:
         working_hours = True
     else:
         working_hours = False
-
-    # if current_time.hour >= end_hour:
-    #     work_day_ended = True
-    # else:
-    #     work_day_ended = False
 
     # Create the time outline
     for x in range(ledshim.NUM_PIXELS):
@@ -152,8 +144,6 @@ def update_led_row(event_times):
         highlight_current_time(current_time.hour, current_time.minute)
 
     ledshim.show()
-
-
 
 
 
