@@ -1,0 +1,11 @@
+[Unit]
+Description=Desk pi
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u main.py
+WorkingDirectory=/home/pi/desk-pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
