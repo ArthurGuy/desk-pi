@@ -223,9 +223,9 @@ def update_calendar():
     draw_text((28, 86), day_text, colour=inky_display.BLACK)
 
     # bottom dividing line
-    for y in range(84, 86):
-        for x in range(0, inky_display.width):
-            img.putpixel((x, y), inky_display.BLACK)
+    # for y in range(84, 86):
+    #     for x in range(0, inky_display.width):
+    #         img.putpixel((x, y), inky_display.BLACK)
 
 
     inky_display.set_border(inky_display.BLACK)
