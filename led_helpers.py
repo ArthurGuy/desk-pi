@@ -8,8 +8,8 @@ import ledshim
 
 ledshim.set_clear_on_exit()
 
-start_hour = 8
-end_hour = 19
+start_hour = 9
+end_hour = 18
 hours_to_track = (end_hour - start_hour)
 
 overhang_leds = 2  # Extra LEDs on the right side that are ignored because of alignment

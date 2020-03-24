@@ -33,8 +33,8 @@ draw = ImageDraw.Draw(img)
 
 
 # Led day display, initialise variables and calculate details
-start_hour = 8
-end_hour = 19
+start_hour = 9
+end_hour = 18
 hours_to_track = (end_hour - start_hour)
 
 leds_per_hour = math.floor(ledshim.NUM_PIXELS / hours_to_track)
