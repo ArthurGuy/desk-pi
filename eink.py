@@ -165,21 +165,21 @@ def clean_display():
 
 def update_calendar():
     today = datetime.datetime.now()
-    tomorrow = today + datetime.timedelta(days=1)
-    global led_event_list, work_day_ended
+    global led_event_list
+    
+    _work_day_ended = work_day_ended()
 
     # Fetch todays events or tomorrows events
     try:
-        events = get_all_calendar_items(tomorrow_only=work_day_ended, today_only=not work_day_ended)
-        show_tomorrows_events = work_day_ended
-        if not work_day_ended and len(events) is 0:
+        events = get_all_calendar_items(tomorrow_only=_work_day_ended, today_only=not _work_day_ended)
+        show_tomorrows_events = _work_day_ended
+        if not _work_day_ended and len(events) is 0:
             # Nothing left for today, show tomorrows stuff
             show_tomorrows_events = True
             events = get_all_calendar_items(tomorrow_only=True)
     except RuntimeError:
         return False
 
-    # clean_display()
     # Write over the text with a white box
     draw.rectangle((0, 0, inky_display.width - 1, 83), fill=inky_display.WHITE)
     # for y in range(0, 83):
@@ -189,7 +189,7 @@ def update_calendar():
 
     led_event_list = []
 
-    if not work_day_ended and not show_tomorrows_events:
+    if not _work_day_ended and not show_tomorrows_events:
         # If we are still in the working day and we haven't switch to tomorrow capture todays events for the led display
         for event in events:
             start_time = datetime.datetime.fromisoformat(event.get('start_time'))
