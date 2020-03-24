@@ -3,4 +3,6 @@ cp desk-pi.service /etc/systemd/system/desk-pi.service
 
 systemctl daemon-reload
 
+systemctl enable desk-pi.service
+
 systemctl restart desk-pi.service
