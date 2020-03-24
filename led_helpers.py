@@ -70,6 +70,9 @@ def determine_highlight_pixels(hour, minute, minute_duration):
             pixel = start_extra + (leds_per_hour * (hour - start_hour))
         if minute_duration is not None:
             num_leds = math.floor(minute_duration / 20)
+    # If the event is less than 30 minutes make sure its still represented
+    if num_leds == 0:
+        num_leds = 1
 
     return list(range(pixel, pixel + num_leds))
 
