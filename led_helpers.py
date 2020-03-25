@@ -135,6 +135,7 @@ def update_led_row(event_times):
 
     # Colour in events
     # TODO: If event is outside of working day don't include it
+    print("LED Helper: Event times", event_times)
     for event in event_times:
         event_hour = int(event.get('start').split(':')[0])
         event_minute = int(event.get('start').split(':')[1])

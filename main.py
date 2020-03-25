@@ -247,6 +247,7 @@ screen_day_last_updated = None
 if __name__ == '__main__':
     while True:
         update_screen = False
+        print("Main: Event times", led_event_list)
         update_led_row(led_event_list)
 
         if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
