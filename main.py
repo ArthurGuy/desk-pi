@@ -216,7 +216,7 @@ def update_calendar():
         for x in range(137 - (y - 79), inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
     date_text = today.strftime("%d/%m/%Y")
-    draw_text((138, bottom_info_row_y_start + 4), date_text, colour=inky_display.WHITE)
+    draw_text((138, bottom_info_row_y_start + 3), date_text, colour=inky_display.WHITE)
 
     # Bottom left corner markings
     for y in range(bottom_info_row_y_start, inky_display.height):
