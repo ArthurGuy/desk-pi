@@ -79,7 +79,7 @@ def determine_highlight_pixels(hour, minute, minute_duration):
 
 def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturation=1):
     pixels = determine_highlight_pixels(hour, minute, minute_duration)
-    print("highlight events, pixels:", pixels)
+    # print("highlight events, pixels:", pixels)
     num_leds = len(pixels)
     if num_leds == 0:
         return
@@ -87,7 +87,7 @@ def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturat
 
     if pixel is not None:
         for x in range(num_leds):
-            if (pixel + x) < num_leds:  # The event might be in the evening and out of range
+            if x < num_leds:  # The event might be in the evening and out of range
                 set_pixel(pixel + x, hew, saturation, brightness)
                 event_pixels.append(pixel + x)
 
@@ -135,7 +135,7 @@ def update_led_row(event_times):
 
     # Colour in events
     # TODO: If event is outside of working day don't include it
-    print("LED Helper: Event times", event_times)
+    # print("LED Helper: Event times", event_times)
     for event in event_times:
         event_hour = int(event.get('start').split(':')[0])
         event_minute = int(event.get('start').split(':')[1])
