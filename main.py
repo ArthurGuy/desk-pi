@@ -220,9 +220,9 @@ def update_calendar():
 
     # Display the day in the bottom space
     day_text = today.strftime("%A")
-    for y in range(bottom_info_row_y_start, inky_display.height):
-        for x in range(0, (y - bottom_info_row_y_start)):
-            img.putpixel((x, y), inky_display.BLACK)
+    # for y in range(bottom_info_row_y_start, inky_display.height):
+    #     for x in range(0, (y - bottom_info_row_y_start)):
+    #         img.putpixel((x, y), inky_display.BLACK)
     draw_text((22, bottom_info_row_y_start), day_text, colour=inky_display.BLACK)
 
     # bottom dividing line
@@ -231,7 +231,7 @@ def update_calendar():
     #         img.putpixel((x, y), inky_display.BLACK)
 
 
-    inky_display.set_border(inky_display.BLACK)
+    # inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
 
