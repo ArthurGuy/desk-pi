@@ -21,6 +21,7 @@ extra_leds = num_leds - leds_for_all_hours
 start_extra = math.floor(extra_leds / 2)
 
 current_time_hew = 0.6  # blue
+current_time_event_overlap_hew = 0.5  # light blue
 current_time_brightness = 0.9
 
 work_day_hew = 0.2  # green/yellow
@@ -99,9 +100,11 @@ def highlight_current_time(hour, minute):
     if pixel is not None:
         for x in range(num_leds):
             if (pixel + x) in event_pixels:
+                # We are in an event
+                set_pixel(pixel + x, current_time_event_overlap_hew, 1, current_time_brightness)
+            else:
+                # Normal day marker
                 set_pixel(pixel + x, current_time_hew, 1, current_time_brightness)
-            # else:
-            #     set_pixel(pixel + x, current_time_hew, 0, current_time_brightness)
 
 
 def work_day_ended():

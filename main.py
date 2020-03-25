@@ -209,14 +209,14 @@ def update_calendar():
         draw_text((5, y), generate_calendar_text(event))
         y += 18
 
-    bottom_info_row_y_start = 84
+    bottom_info_row_y_start = 86
 
     # Display the date in the bottom right on a black background
     date_text = today.strftime("%d/%m/%Y")
     for y in range(bottom_info_row_y_start, inky_display.height):
         for x in range(138 - (y - bottom_info_row_y_start), inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
-    draw_text((138, bottom_info_row_y_start + 2), date_text, colour=inky_display.WHITE)
+    draw_text((138, bottom_info_row_y_start + 4), date_text, colour=inky_display.WHITE)
 
     # Bottom left corner markings
     for y in range(bottom_info_row_y_start, inky_display.height):
