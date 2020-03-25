@@ -209,7 +209,7 @@ def update_calendar():
         draw_text((5, y), generate_calendar_text(event))
         y += 18
 
-    bottom_info_row_y_start = 86
+    bottom_info_row_y_start = 84
 
     # Display the date in the bottom right on a black background
     date_text = today.strftime("%d/%m/%Y")
