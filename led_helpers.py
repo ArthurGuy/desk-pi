@@ -79,7 +79,7 @@ def determine_highlight_pixels(hour, minute, minute_duration):
 
 def highlight_event_time(hour, minute, minute_duration, hew, brightness, saturation=1):
     pixels = determine_highlight_pixels(hour, minute, minute_duration)
-
+    print("highlight events, pixels:", pixels)
     num_leds = len(pixels)
     if num_leds == 0:
         return
