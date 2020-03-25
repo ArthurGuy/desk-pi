@@ -20,7 +20,7 @@ extra_leds = num_leds - leds_for_all_hours
 
 start_extra = math.floor(extra_leds / 2)
 
-current_time_hew = 0.6  # blue
+current_time_hew = 0.7  # blue
 current_time_event_overlap_hew = 0.5  # light blue
 current_time_brightness = 0.9
 
