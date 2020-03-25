@@ -6,3 +6,4 @@ inky
 ledshim
 smbus
 numpy
+adafruit-circuitpython-ssd1306
