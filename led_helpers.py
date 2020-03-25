@@ -24,7 +24,7 @@ current_time_hew = 0.5  # light blue
 current_time_brightness = 0.9
 
 work_day_hew = 0.2  # green/yellow
-work_day_brightness = 0.7
+work_day_brightness = 0.8
 
 edge_hew = 0.2
 edge_brightness = 0
