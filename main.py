@@ -231,7 +231,7 @@ def update_calendar():
     #         img.putpixel((x, y), inky_display.BLACK)
 
 
-    # inky_display.set_border(inky_display.BLACK)
+    inky_display.set_border(inky_display.BLACK)
     inky_display.set_image(img)
     inky_display.show()
 
