@@ -213,7 +213,7 @@ def update_calendar():
 
     # Display the date in the bottom right on a black background
     for y in range(bottom_info_row_y_start, inky_display.height):
-        for x in range(145 - (y - bottom_info_row_y_start), inky_display.width):
+        for x in range(134 - (y - bottom_info_row_y_start), inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
     date_text = today.strftime("%d/%m/%Y")
     draw_text((138, bottom_info_row_y_start + 4), date_text, colour=inky_display.WHITE)
