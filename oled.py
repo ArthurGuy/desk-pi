@@ -68,8 +68,8 @@ x = 0
 
 
 # Load default font.
-# font = ImageFont.load_default()
-font = ImageFont.truetype(HankenGroteskMedium, int(20))
+font = ImageFont.load_default()
+main_font = ImageFont.truetype(HankenGroteskMedium, int(20))
 
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the
 # same directory as the python script!
@@ -83,7 +83,12 @@ while True:
 
     # Write four lines of text.
 
-    draw.text((x, top), "Out for lunch", font=font, fill=255)
+    draw.text((x, top), "Out for lunch", font=main_font, fill=255)
+    draw.text((x, top+25), "60 minutes", font=font, fill=255)
+
+    # draw.text((x, top), "Busy", font=main_font, fill=255)
+
+    # draw.text((x, top), "Meeting", font=main_font, fill=255)
 
     # Display image.
     disp.image(image)
