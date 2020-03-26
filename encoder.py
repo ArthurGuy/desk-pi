@@ -5,17 +5,11 @@ from time import sleep
 Enc_A = 23  # Encoder input A
 Enc_B = 24  # Encoder input B
 
-counter = 0
-counter_max = 5
+encoder_counter = 0
+encoder_counter_max = 5
 
 
-def init():
-    '''
-    Initializes a number of settings and prepares the environment
-    before we start the main program.
-    '''
-    print("Rotary Encoder Test Program")
-
+def init_encoder():
     GPIO.setwarnings(True)
 
     # Use the Raspberry Pi BCM pins
@@ -27,52 +21,55 @@ def init():
 
     # setup an event detection thread for the A encoder switch
     GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2)  # bouncetime in mSec
-    #
 
 
 def rotation_decode(Enc_A):
-    global counter
+    global encoder_counter
 
     # read both of the switches
-    Switch_A = GPIO.input(Enc_A)
-    Switch_B = GPIO.input(Enc_B)
+    switch_a = GPIO.input(Enc_A)
+    switch_b = GPIO.input(Enc_B)
 
-    if (Switch_A == 0) and (Switch_B == 1):  # A then B ->
-        counter += 1
-        if counter > counter_max:
+    if (switch_a == 0) and (switch_b == 1):  # A then B ->
+        encoder_counter += 1
+        if encoder_counter > encoder_counter_max:
             counter = 0
-        print("direction -> ", counter)
-        while Switch_B == 1:
-            Switch_B = GPIO.input(Enc_B)
+        print("direction -> ", encoder_counter)
+        while switch_b == 1:
+            switch_b = GPIO.input(Enc_B)
 
         # now wait for B to drop to end the click cycle
-        while Switch_B == 0:
-            Switch_B = GPIO.input(Enc_B)
+        while switch_b == 0:
+            switch_b = GPIO.input(Enc_B)
         return
 
-    elif (Switch_A == 0) and (Switch_B == 0):  # B then A <-
-        counter -= 1
-        if counter < 0:
-            counter = counter_max
-        print("direction <- ", counter)
-        while Switch_A == 0:
-            Switch_A = GPIO.input(Enc_A)
+    elif (switch_a == 0) and (switch_b == 0):  # B then A <-
+        encoder_counter -= 1
+        if encoder_counter < 0:
+            encoder_counter = encoder_counter_max
+        print("direction <- ", encoder_counter)
+        while switch_a == 0:
+            switch_a = GPIO.input(Enc_A)
         return
 
     else:  # discard all other combinations
         return None
 
 
+def encoder_cleanup():
+    GPIO.cleanup()
+
+
 def main():
     try:
 
-        init()
+        init_encoder()
         while True:
             # wait for an encoder click
             sleep(1)
 
     except KeyboardInterrupt:  # Ctrl-C to terminate the program
-        GPIO.cleanup()
+        encoder_cleanup()
 
 
 if __name__ == '__main__':
