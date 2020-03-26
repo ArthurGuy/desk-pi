@@ -52,26 +52,30 @@ def main():
     try:
 
         init_encoder()
+
+        last_count = 0
         while True:
             count = encoder_count()
-            # Draw a black filled box to clear the image.
-            draw.rectangle((0, 0, width, height), outline=0, fill=0)
-            if count == 0:
-                draw.text((x, top), "Out for lunch", font=main_font, fill=255)
-                draw.text((x, top + 25), "60 minutes", font=font, fill=255)
-            elif count == 1:
-                draw.text((x, top), "Busy", font=main_font, fill=255)
-                draw.text((x, top + 25), "60 minutes", font=font, fill=255)
-            elif count == 2:
-                draw.text((x, top), "Meeting", font=main_font, fill=255)
-                draw.text((x, top + 25), "30 minutes", font=font, fill=255)
-            elif count == 3:
-                draw.text((x, top), "Working", font=main_font, fill=255)
+            if count != last_count:
+                last_count = count
+                # Draw a black filled box to clear the image.
+                draw.rectangle((0, 0, width, height), outline=0, fill=0)
+                if count == 0:
+                    draw.text((x, top), "Out for lunch", font=main_font, fill=255)
+                    draw.text((x, top + 25), "60 minutes", font=font, fill=255)
+                elif count == 1:
+                    draw.text((x, top), "Busy", font=main_font, fill=255)
+                    draw.text((x, top + 25), "60 minutes", font=font, fill=255)
+                elif count == 2:
+                    draw.text((x, top), "Meeting", font=main_font, fill=255)
+                    draw.text((x, top + 25), "30 minutes", font=font, fill=255)
+                elif count == 3:
+                    draw.text((x, top), "Working", font=main_font, fill=255)
 
-            # Display image.
-            disp.image(image)
-            disp.show()
-            time.sleep(0.1)
+                # Display image.
+                disp.image(image)
+                disp.show()
+                # time.sleep(0.1)
 
     except KeyboardInterrupt:  # Ctrl-C to terminate the program
         encoder_cleanup()
