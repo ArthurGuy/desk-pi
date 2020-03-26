@@ -33,7 +33,7 @@ def rotation_decode(Enc_A):
     if (switch_a == 0) and (switch_b == 1):  # A then B ->
         encoder_counter += 1
         if encoder_counter > encoder_counter_max:
-            counter = 0
+            encoder_counter = 0
         print("direction -> ", encoder_counter)
         while switch_b == 1:
             switch_b = GPIO.input(Enc_B)
@@ -54,6 +54,10 @@ def rotation_decode(Enc_A):
 
     else:  # discard all other combinations
         return None
+
+
+def encoder_count():
+    return encoder_counter
 
 
 def encoder_cleanup():

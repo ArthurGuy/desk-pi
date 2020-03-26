@@ -8,7 +8,7 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 
 from encoder import init_encoder
 from encoder import encoder_cleanup
-from encoder import encoder_counter
+from encoder import encoder_count
 
 
 # Create the I2C interface.
@@ -53,15 +53,16 @@ def main():
 
         init_encoder()
         while True:
+            count = encoder_count()
             # Draw a black filled box to clear the image.
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
-            if encoder_counter == 0:
+            if count == 0:
                 draw.text((x, top), "Out for lunch", font=main_font, fill=255)
                 draw.text((x, top + 25), "60 minutes", font=font, fill=255)
-            elif encoder_counter == 1:
+            elif count == 1:
                 draw.text((x, top), "Busy", font=main_font, fill=255)
                 draw.text((x, top + 25), "60 minutes", font=font, fill=255)
-            elif encoder_counter == 2:
+            elif count == 2:
                 draw.text((x, top), "Meeting", font=main_font, fill=255)
                 draw.text((x, top + 25), "30 minutes", font=font, fill=255)
             else:
