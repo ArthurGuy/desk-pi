@@ -25,7 +25,7 @@ def init():
     GPIO.setup(Enc_B, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # setup an event detection thread for the A encoder switch
-    GPIO.add_event_detect(Enc_A, GPIO.RISING, callback=rotation_decode, bouncetime=2) # bouncetime in mSec
+    GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2) # bouncetime in mSec
     #
 
 
@@ -60,7 +60,7 @@ def rotation_decode(Enc_A):
     Switch_A = GPIO.input(Enc_A)
     Switch_B = GPIO.input(Enc_B)
 
-    if (Switch_A == 1) and (Switch_B == 0) : # A then B ->
+    if (Switch_A == 1) and (Switch_B == 0):  # A then B ->
         counter += 1
         print("direction -> ", counter)
         # at this point, B may still need to go high, wait for it
@@ -71,7 +71,7 @@ def rotation_decode(Enc_A):
             Switch_B = GPIO.input(Enc_B)
         return
 
-    elif (Switch_A == 1) and (Switch_B == 1): # B then A <-
+    elif (Switch_A == 1) and (Switch_B == 1):  # B then A <-
         counter -= 1
         print("direction <- ", counter)
          # A is already high, wait for A to drop to end the click cycle
