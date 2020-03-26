@@ -60,22 +60,22 @@ def rotation_decode(Enc_A):
     Switch_A = GPIO.input(Enc_A)
     Switch_B = GPIO.input(Enc_B)
 
-    if (Switch_A == 1) and (Switch_B == 0):  # A then B ->
+    if (Switch_A == 0) and (Switch_B == 1):  # A then B ->
         counter += 1
         print("direction -> ", counter)
         # at this point, B may still need to go high, wait for it
-        while Switch_B == 0:
+        while Switch_B == 1:
             Switch_B = GPIO.input(Enc_B)
         # now wait for B to drop to end the click cycle
-        while Switch_B == 1:
+        while Switch_B == 0:
             Switch_B = GPIO.input(Enc_B)
         return
 
-    elif (Switch_A == 1) and (Switch_B == 1):  # B then A <-
+    elif (Switch_A == 0) and (Switch_B == 0):  # B then A <-
         counter -= 1
         print("direction <- ", counter)
          # A is already high, wait for A to drop to end the click cycle
-        while Switch_A == 1:
+        while Switch_A == 0:
             Switch_A = GPIO.input(Enc_A)
         return
 
