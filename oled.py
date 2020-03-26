@@ -25,7 +25,6 @@
 # not support PIL/pillow (python imaging library)!
 
 import time
-import subprocess
 
 from board import SCL, SDA
 import busio
@@ -38,8 +37,7 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 i2c = busio.I2C(SCL, SDA)
 
 # Create the SSD1306 OLED class.
-# The first two parameters are the pixel width and pixel height.  Change these
-# to the right size for your display!
+# The first two parameters are the pixel width and pixel height.
 disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
 
 # Clear display.
@@ -71,24 +69,19 @@ x = 0
 font = ImageFont.load_default()
 main_font = ImageFont.truetype(HankenGroteskMedium, int(20))
 
-# Alternatively load a TTF font.  Make sure the .ttf font file is in the
-# same directory as the python script!
-# Some other nice fonts to try: http://www.dafont.com/bitmap.php
-# font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 9)
-
 while True:
 
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
-    # Write four lines of text.
-
     draw.text((x, top), "Out for lunch", font=main_font, fill=255)
     draw.text((x, top+25), "60 minutes", font=font, fill=255)
 
     # draw.text((x, top), "Busy", font=main_font, fill=255)
+    # draw.text((x, top + 25), "60 minutes", font=font, fill=255)
 
     # draw.text((x, top), "Meeting", font=main_font, fill=255)
+    # draw.text((x, top + 25), "30 minutes", font=font, fill=255)
 
     # Display image.
     disp.image(image)
