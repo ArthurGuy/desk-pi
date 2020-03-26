@@ -5,6 +5,8 @@ from time import sleep
 Enc_A = 23  # Encoder input A
 Enc_B = 24  # Encoder input B
 
+counter = 10
+
 
 def init():
     '''
