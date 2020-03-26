@@ -6,7 +6,7 @@ Enc_A = 23  # Encoder input A
 Enc_B = 24  # Encoder input B
 
 encoder_counter = 0
-encoder_counter_max = 5
+encoder_counter_max = 3
 
 
 def init_encoder():

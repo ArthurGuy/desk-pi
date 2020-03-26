@@ -65,8 +65,8 @@ def main():
             elif count == 2:
                 draw.text((x, top), "Meeting", font=main_font, fill=255)
                 draw.text((x, top + 25), "30 minutes", font=font, fill=255)
-            else:
-                draw.text((x, top), "Other", font=main_font, fill=255)
+            elif count == 3:
+                draw.text((x, top), "Working", font=main_font, fill=255)
 
             # Display image.
             disp.image(image)
