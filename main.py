@@ -10,7 +10,6 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
 from led_helpers import work_day_ended
-import datetime
 
 PATH = os.path.dirname(__file__)
 

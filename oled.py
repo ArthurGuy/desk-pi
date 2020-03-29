@@ -5,10 +5,12 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
-
+import datetime
 from encoder import init_encoder
 from encoder import encoder_cleanup
 from encoder import encoder_count
+
+from slack_helpers import get_slack_status
 
 
 # Create the I2C interface.
@@ -47,14 +49,23 @@ x = 0
 font = ImageFont.load_default()
 main_font = ImageFont.truetype(HankenGroteskMedium, int(20))
 
+slack_status_last_fetched = None
+slack_status = None
+
 
 def main():
+    global slack_status, slack_status_last_fetched
     try:
 
         init_encoder()
 
         last_count = -1
         while True:
+
+            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 3600:
+                slack_status_last_fetched = datetime.datetime.now()
+                slack_status = get_slack_status()
+
             count = encoder_count()
             if count != last_count:
                 last_count = count
@@ -62,8 +73,7 @@ def main():
                 draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
                 if count == 0:
-                    draw.text((x, top), "Out for lunch", font=main_font, fill=255)
-                    draw.text((x, top + 25), "60 minutes", font=font, fill=255)
+                    draw.text((x, top), slack_status, font=main_font, fill=255)
                 elif count == 1:
                     draw.text((x, top), "Busy", font=main_font, fill=255)
                     draw.text((x, top + 25), "60 minutes", font=font, fill=255)

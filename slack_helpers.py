@@ -24,7 +24,8 @@ def get_slack_status():
     print("fetching data for user", slack_user)
 
     profile = slack_client.users_profile_get(user=slack_user)
-    print(profile.get('profile').get('status_text'))
+    status = profile.get('profile').get('status_text')
+    return status
 
 
 def set_slack_status_busy():
@@ -40,5 +41,6 @@ def set_slack_status_empty():
 
 
 if __name__ == '__main__':
-    get_slack_status()
+    status = get_slack_status()
+    print(status)
     set_slack_status_empty()
