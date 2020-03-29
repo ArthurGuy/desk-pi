@@ -74,6 +74,7 @@ def main():
 
                 if count == 0:
                     draw.text((x, top), slack_status, font=main_font, fill=255)
+                    draw.text((x, top + 25), "Current status", font=font, fill=255)
                 elif count == 1:
                     draw.text((x, top), "Busy", font=main_font, fill=255)
                     draw.text((x, top + 25), "60 minutes", font=font, fill=255)
@@ -81,7 +82,7 @@ def main():
                     draw.text((x, top), "Meeting", font=main_font, fill=255)
                     draw.text((x, top + 25), "30 minutes", font=font, fill=255)
                 elif count == 3:
-                    draw.text((x, top), "Working", font=main_font, fill=255)
+                    draw.text((x, top), "Lunch", font=main_font, fill=255)
 
                 disp.image(image)
                 disp.show()
