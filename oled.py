@@ -85,14 +85,15 @@ def main():
                 slack_status_last_fetched = datetime.datetime.now()
                 try:
                     _slack_status_message = get_slack_status()
+
+                    # If the status has changed update the system
+                    if slack_status_message is not _slack_status_message:
+                        slack_status_message = _slack_status_message
+                        # Update the screen and reset the counter
+                        set_display_status(slack_status_message, "Current status")
+                        set_encoder_count(0)
                 except RuntimeError:
-                    return False
-                # If the status has changed update the system
-                if slack_status_message is not _slack_status_message:
-                    slack_status_message = _slack_status_message
-                    # Update the screen and reset the counter
-                    set_display_status(slack_status_message, "Current status")
-                    set_encoder_count(0)
+                    print("Error fetching slack status")
 
             count = encoder_count()
             if count != last_count:
