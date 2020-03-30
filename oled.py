@@ -53,6 +53,16 @@ slack_status_last_fetched = None
 slack_status = None
 
 
+def set_status(status_text, sub_text):
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
+    draw.text((x, top), slack_status, font=main_font, fill=255)
+    if sub_text is not None:
+        draw.text((x, top + 25), sub_text, font=font, fill=255)
+    disp.image(image)
+    disp.show()
+
+
 def main():
     global slack_status, slack_status_last_fetched
     try:
@@ -65,27 +75,21 @@ def main():
             if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 3600:
                 slack_status_last_fetched = datetime.datetime.now()
                 slack_status = get_slack_status()
+                set_status(slack_status, "Current status")
 
             count = encoder_count()
             if count != last_count:
                 last_count = count
-                # Draw a black filled box to clear the image.
-                draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
                 if count == 0:
                     draw.text((x, top), slack_status, font=main_font, fill=255)
                     draw.text((x, top + 25), "Current status", font=font, fill=255)
                 elif count == 1:
-                    draw.text((x, top), "Busy", font=main_font, fill=255)
-                    draw.text((x, top + 25), "60 minutes", font=font, fill=255)
+                    set_status("Busy", None)
                 elif count == 2:
-                    draw.text((x, top), "Meeting", font=main_font, fill=255)
-                    draw.text((x, top + 25), "30 minutes", font=font, fill=255)
+                    set_status("Meeting", "30 minutes")
                 elif count == 3:
-                    draw.text((x, top), "Lunch", font=main_font, fill=255)
-
-                disp.image(image)
-                disp.show()
+                    set_status("Lunch", "30 minutes")
 
     except KeyboardInterrupt:
         encoder_cleanup()
