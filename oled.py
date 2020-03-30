@@ -98,7 +98,6 @@ def main():
             if count != last_count:
                 last_count = count
                 encoder_last_changed = datetime.datetime.now()
-                draft_status = True
 
                 # Encoder changed, update the screen
                 if count == 0:
@@ -106,12 +105,15 @@ def main():
                 elif count == 1:
                     set_display_status("Clear status", None)
                     desired_slack_status_id = 1
+                    draft_status = True
                 elif count == 2:
                     set_display_status("Busy", "30 minutes")
                     desired_slack_status_id = 2
+                    draft_status = True
                 elif count == 3:
                     set_display_status("Lunch", "30 minutes")
                     desired_slack_status_id = 3
+                    draft_status = True
 
             if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
                 if slack_status_id == desired_slack_status_id:
