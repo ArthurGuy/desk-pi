@@ -12,6 +12,8 @@ from encoder import encoder_count
 from encoder import set_encoder_count
 
 from slack_helpers import get_slack_status
+from slack_helpers import set_slack_status_busy
+from slack_helpers import set_slack_status_empty
 
 
 # Create the I2C interface.
@@ -52,6 +54,8 @@ main_font = ImageFont.truetype(HankenGroteskMedium, int(20))
 
 slack_status_last_fetched = None
 slack_status = None
+encoder_last_changed = None
+draft_status = False
 
 
 def set_status(status_text, sub_text):
@@ -65,7 +69,7 @@ def set_status(status_text, sub_text):
 
 
 def main():
-    global slack_status, slack_status_last_fetched
+    global slack_status, slack_status_last_fetched, draft_status, encoder_last_changed
     try:
 
         init_encoder()
@@ -87,15 +91,21 @@ def main():
             count = encoder_count()
             if count != last_count:
                 last_count = count
+                encoder_last_changed = datetime.datetime.now()
+                draft_status = True
 
                 if count == 0:
                     set_status(slack_status, "Current status")
                 elif count == 1:
-                    set_status("Busy", None)
+                    set_status("Clear status", None)
                 elif count == 2:
                     set_status("Meeting", "30 minutes")
                 elif count == 3:
                     set_status("Lunch", "30 minutes")
+
+            if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
+                set_slack_status_busy()
+                draft_status = False
 
     except KeyboardInterrupt:
         encoder_cleanup()
