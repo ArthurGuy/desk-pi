@@ -56,7 +56,7 @@ slack_status = None
 def set_status(status_text, sub_text):
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
-    draw.text((x, top), slack_status, font=main_font, fill=255)
+    draw.text((x, top), status_text, font=main_font, fill=255)
     if sub_text is not None:
         draw.text((x, top + 25), sub_text, font=font, fill=255)
     disp.image(image)
@@ -82,8 +82,7 @@ def main():
                 last_count = count
 
                 if count == 0:
-                    draw.text((x, top), slack_status, font=main_font, fill=255)
-                    draw.text((x, top + 25), "Current status", font=font, fill=255)
+                    set_status(slack_status, "Current status")
                 elif count == 1:
                     set_status("Busy", None)
                 elif count == 2:
