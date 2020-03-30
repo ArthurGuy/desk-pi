@@ -96,6 +96,7 @@ def main():
                         # Update the screen and reset the counter
                         set_display_status(slack_status_message, "Current status")
                         set_encoder_count(0)
+                    set_display_status(slack_status_message, None)
                 except RuntimeError:
                     set_display_status(slack_status_message, "Error checking slack")
                     # Wait a few seconds as the next time around it will try again
