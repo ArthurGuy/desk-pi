@@ -109,11 +109,11 @@ def main():
                     desired_slack_status_id = 1
                     draft_status = True
                 elif count == 2:
-                    set_display_status("Busy", "30 minutes")
+                    set_display_status("Busy", None)
                     desired_slack_status_id = 2
                     draft_status = True
                 elif count == 3:
-                    set_display_status("Lunch", "30 minutes")
+                    set_display_status("Lunch", None)
                     desired_slack_status_id = 3
                     draft_status = True
 
