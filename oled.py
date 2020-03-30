@@ -124,12 +124,15 @@ def main():
                 else:
                     slack_status_id = desired_slack_status_id
                     draft_status = False
-                    if slack_status_id == 1:
-                        set_slack_status_empty()
-                    elif slack_status_id == 2:
-                        set_slack_status_busy()
-                    elif slack_status_id == 3:
-                        set_slack_status_lunch()
+                    try:
+                        if slack_status_id == 1:
+                            set_slack_status_empty()
+                        elif slack_status_id == 2:
+                            set_slack_status_busy()
+                        elif slack_status_id == 3:
+                            set_slack_status_lunch()
+                    except RuntimeError:
+                        print("Error setting slack status")
 
     except KeyboardInterrupt:
         encoder_cleanup()
