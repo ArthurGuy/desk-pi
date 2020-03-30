@@ -81,11 +81,13 @@ def main():
         last_count = -1
         while True:
 
-            # Fetch the current status every 15 minutes and on startup
-            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 900:
-                slack_status_last_fetched = datetime.datetime.now()
+            # Fetch the current status every 5 minutes and on startup
+            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 300:
                 try:
+                    set_display_status(slack_status_message, "Checking slack...")
                     _slack_status_message = get_slack_status()
+
+                    slack_status_last_fetched = datetime.datetime.now()
 
                     # If the status has changed update the system
                     if slack_status_message is not _slack_status_message:
@@ -94,8 +96,11 @@ def main():
                         set_display_status(slack_status_message, "Current status")
                         set_encoder_count(0)
                 except RuntimeError:
-                    print("Error fetching slack status")
+                    set_display_status(slack_status_message, "Error checking slack")
+                    # Wait a few seconds as the next time around it will try again
+                    time.sleep(5)
 
+            # Check the encoder to see if its been changed
             count = encoder_count()
             if count != last_count:
                 last_count = count
@@ -118,6 +123,7 @@ def main():
                     desired_slack_status_id = 3
                     draft_status = True
 
+            # If the status has been changed and we have been waiting 5 seconds make the update
             if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
                 if slack_status_id == desired_slack_status_id:
                     # No change in status
@@ -127,14 +133,18 @@ def main():
                     draft_status = False
                     try:
                         if slack_status_id == 1:
+                            set_display_status("", "Updating slack...")
                             set_slack_status(None)
                             slack_status_message = ""
                         elif slack_status_id == 2:
-                            set_slack_status("Busy")
                             slack_status_message = "Busy"
+                            set_display_status(slack_status_message, "Updating slack...")
+                            set_slack_status(slack_status_message)
                         elif slack_status_id == 3:
-                            set_slack_status("Lunch")
                             slack_status_message = "Lunch"
+                            set_display_status(slack_status_message, "Updating slack...")
+                            set_slack_status(slack_status_message)
+                        # Reset the selector back to viewing the current status
                         set_encoder_count(0)
                     except RuntimeError:
                         print("Error setting slack status")
