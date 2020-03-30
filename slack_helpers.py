@@ -34,6 +34,12 @@ def set_slack_status_busy():
     slack_client.users_profile_set(user=slack_user, profile=status)
 
 
+def set_slack_status_lunch():
+    status = {'status_text': 'Lunch', 'status_emoji': ':deciduous_tree:'}
+    print("setting status for user", slack_user, status)
+    slack_client.users_profile_set(user=slack_user, profile=status)
+
+
 def set_slack_status_empty():
     status = {'status_text': None, 'status_emoji': None}
     print("setting status for user", slack_user, status)

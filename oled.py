@@ -13,6 +13,7 @@ from encoder import set_encoder_count
 
 from slack_helpers import get_slack_status
 from slack_helpers import set_slack_status_busy
+from slack_helpers import set_slack_status_lunch
 from slack_helpers import set_slack_status_empty
 
 
@@ -53,12 +54,14 @@ font = ImageFont.load_default()
 main_font = ImageFont.truetype(HankenGroteskMedium, int(20))
 
 slack_status_last_fetched = None
-slack_status = None
+slack_status_message = None
 encoder_last_changed = None
 draft_status = False
+slack_status_id = 0
+desired_slack_status_id = 0
 
 
-def set_status(status_text, sub_text):
+def set_display_status(status_text, sub_text):
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
     draw.text((x, top), status_text, font=main_font, fill=255)
@@ -69,7 +72,7 @@ def set_status(status_text, sub_text):
 
 
 def main():
-    global slack_status, slack_status_last_fetched, draft_status, encoder_last_changed
+    global slack_status_message, slack_status_last_fetched, draft_status, encoder_last_changed, slack_status_id, desired_slack_status_id
     try:
 
         init_encoder()
@@ -80,12 +83,12 @@ def main():
             # Fetch the current status every 15 minutes and on startup
             if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 900:
                 slack_status_last_fetched = datetime.datetime.now()
-                _slack_status = get_slack_status()
+                _slack_status_message = get_slack_status()
                 # If the status has changed update the system
-                if slack_status is not _slack_status:
-                    slack_status = _slack_status
+                if slack_status_message is not _slack_status_message:
+                    slack_status_message = _slack_status_message
                     # Update the screen and reset the counter
-                    set_status(slack_status, "Current status")
+                    set_display_status(slack_status_message, "Current status")
                     set_encoder_count(0)
 
             count = encoder_count()
@@ -94,18 +97,32 @@ def main():
                 encoder_last_changed = datetime.datetime.now()
                 draft_status = True
 
+                # Encoder changed, update the screen
                 if count == 0:
-                    set_status(slack_status, "Current status")
+                    set_display_status(slack_status_message, "Current status")
                 elif count == 1:
-                    set_status("Clear status", None)
+                    set_display_status("Clear status", None)
+                    desired_slack_status_id = 1
                 elif count == 2:
-                    set_status("Meeting", "30 minutes")
+                    set_display_status("Busy", "30 minutes")
+                    desired_slack_status_id = 2
                 elif count == 3:
-                    set_status("Lunch", "30 minutes")
+                    set_display_status("Lunch", "30 minutes")
+                    desired_slack_status_id = 3
 
             if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
-                set_slack_status_busy()
-                draft_status = False
+                if slack_status_id == desired_slack_status_id:
+                    # No change in status
+                    draft_status = False
+                else:
+                    slack_status_id = desired_slack_status_id
+                    draft_status = False
+                    if slack_status_id == 1:
+                        set_slack_status_empty()
+                    elif slack_status_id == 2:
+                        set_slack_status_busy()
+                    elif slack_status_id == 3:
+                        set_slack_status_lunch()
 
     except KeyboardInterrupt:
         encoder_cleanup()
