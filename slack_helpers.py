@@ -46,6 +46,12 @@ def set_slack_status_empty():
     slack_client.users_profile_set(user=slack_user, profile=status)
 
 
+def set_slack_status(text, emoji=None):
+    status = {'status_text': text, 'status_emoji': emoji}
+    print("setting status for user", slack_user, status)
+    slack_client.users_profile_set(user=slack_user, profile=status)
+
+
 if __name__ == '__main__':
     status = get_slack_status()
     print(status)

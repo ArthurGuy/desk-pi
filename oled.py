@@ -15,6 +15,7 @@ from slack_helpers import get_slack_status
 from slack_helpers import set_slack_status_busy
 from slack_helpers import set_slack_status_lunch
 from slack_helpers import set_slack_status_empty
+from slack_helpers import set_slack_status
 
 
 # Create the I2C interface.
@@ -126,11 +127,15 @@ def main():
                     draft_status = False
                     try:
                         if slack_status_id == 1:
-                            set_slack_status_empty()
+                            set_slack_status(None)
+                            slack_status_message = ""
                         elif slack_status_id == 2:
-                            set_slack_status_busy()
+                            set_slack_status("Busy")
+                            slack_status_message = "Busy"
                         elif slack_status_id == 3:
-                            set_slack_status_lunch()
+                            set_slack_status("Lunch")
+                            slack_status_message = "Lunch"
+                        set_encoder_count(0)
                     except RuntimeError:
                         print("Error setting slack status")
 
