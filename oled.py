@@ -140,11 +140,11 @@ def main():
                         elif slack_status_id == 2:
                             slack_status_message = "Busy"
                             set_display_status(slack_status_message, "Updating slack...")
-                            set_slack_status(slack_status_message)
+                            set_slack_status(slack_status_message, ":computer:")
                         elif slack_status_id == 3:
                             slack_status_message = "Lunch"
                             set_display_status(slack_status_message, "Updating slack...")
-                            set_slack_status(slack_status_message)
+                            set_slack_status(slack_status_message, ":deciduous_tree:")
                         # Reset the selector back to viewing the current status
                         set_encoder_count(0)
                     except RuntimeError:
