@@ -83,7 +83,10 @@ def main():
             # Fetch the current status every 15 minutes and on startup
             if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 900:
                 slack_status_last_fetched = datetime.datetime.now()
-                _slack_status_message = get_slack_status()
+                try:
+                    _slack_status_message = get_slack_status()
+                except RuntimeError:
+                    return False
                 # If the status has changed update the system
                 if slack_status_message is not _slack_status_message:
                     slack_status_message = _slack_status_message
