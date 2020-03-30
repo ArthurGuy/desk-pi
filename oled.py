@@ -93,10 +93,10 @@ def main():
                     # If the status has changed update the system
                     if slack_status_message is not _slack_status_message:
                         slack_status_message = _slack_status_message
-                        # Update the screen and reset the counter
-                        set_display_status(slack_status_message, "Current status")
+                        # Reset the counter
                         set_encoder_count(0)
-                    set_display_status(slack_status_message, None)
+                    # Ensure the screen shows the latest message
+                    set_display_status(slack_status_message, "Current status")
                 except RuntimeError:
                     set_display_status(slack_status_message, "Error checking slack")
                     # Wait a few seconds as the next time around it will try again
