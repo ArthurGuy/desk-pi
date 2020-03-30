@@ -9,6 +9,7 @@ import datetime
 from encoder import init_encoder
 from encoder import encoder_cleanup
 from encoder import encoder_count
+from encoder import set_encoder_count
 
 from slack_helpers import get_slack_status
 
@@ -72,10 +73,16 @@ def main():
         last_count = -1
         while True:
 
-            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 3600:
+            # Fetch the current status every 15 minutes and on startup
+            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 900:
                 slack_status_last_fetched = datetime.datetime.now()
-                slack_status = get_slack_status()
-                set_status(slack_status, "Current status")
+                _slack_status = get_slack_status()
+                # If the status has changed update the system
+                if slack_status is not _slack_status:
+                    slack_status = _slack_status
+                    # Update the screen and reset the counter
+                    set_status(slack_status, "Current status")
+                    set_encoder_count(0)
 
             count = encoder_count()
             if count != last_count:

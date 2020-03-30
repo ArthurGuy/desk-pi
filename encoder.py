@@ -60,6 +60,11 @@ def encoder_count():
     return encoder_counter
 
 
+def set_encoder_count(count):
+    global encoder_counter
+    encoder_counter = count
+
+
 def encoder_cleanup():
     GPIO.cleanup()
 
