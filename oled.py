@@ -102,6 +102,7 @@ def main():
                 # Encoder changed, update the screen
                 if count == 0:
                     set_display_status(slack_status_message, "Current status")
+                    desired_slack_status_id = 0
                 elif count == 1:
                     set_display_status("Clear status", None)
                     desired_slack_status_id = 1
