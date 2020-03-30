@@ -62,10 +62,11 @@ slack_status_id = 0
 desired_slack_status_id = 0
 
 
-def set_display_status(status_text, sub_text):
+def set_display_status(status_text, sub_text=None):
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
-    draw.text((x, top), status_text, font=main_font, fill=255)
+    if status_text is not None:
+        draw.text((x, top), status_text, font=main_font, fill=255)
     if sub_text is not None:
         draw.text((x, top + 25), sub_text, font=font, fill=255)
     disp.image(image)
@@ -133,9 +134,9 @@ def main():
                     draft_status = False
                     try:
                         if slack_status_id == 1:
-                            set_display_status("", "Updating slack...")
-                            set_slack_status(None)
-                            slack_status_message = ""
+                            slack_status_message = None
+                            set_display_status(slack_status_message, "Updating slack...")
+                            set_slack_status(slack_status_message)
                         elif slack_status_id == 2:
                             slack_status_message = "Busy"
                             set_display_status(slack_status_message, "Updating slack...")
