@@ -22,10 +22,6 @@ i2c = busio.I2C(SCL, SDA)
 # The first two parameters are the pixel width and pixel height.
 disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
 
-# Clear display.
-# disp.fill(0)
-# disp.show()
-
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
 width = disp.width
@@ -59,87 +55,84 @@ def set_display_status(status_text, sub_text=None):
     disp.show()
 
 
-def main():
+def check_update_slack():
     global slack_status_message, slack_status_last_fetched, draft_status, encoder_last_changed, slack_status_id, desired_slack_status_id
-    try:
+    last_count = -1
 
-        init_encoder()
+    # Fetch the current status every 5 minutes and on startup
+    if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 300:
+        try:
+            set_display_status(slack_status_message, "Checking slack...")
+            _slack_status_message = get_slack_status()
 
-        last_count = -1
-        while True:
+            slack_status_last_fetched = datetime.datetime.now()
 
-            # Fetch the current status every 5 minutes and on startup
-            if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 300:
-                try:
-                    set_display_status(slack_status_message, "Checking slack...")
-                    _slack_status_message = get_slack_status()
+            # If the status has changed update the system
+            if slack_status_message is not _slack_status_message:
+                slack_status_message = _slack_status_message
+                # Reset the counter
+                set_encoder_count(0)
+            # Ensure the screen shows the latest message
+            set_display_status(slack_status_message, "Current status")
+        except RuntimeError:
+            set_display_status(slack_status_message, "Error checking slack")
+            # Wait a few seconds as the next time around it will try again
+            time.sleep(5)
 
-                    slack_status_last_fetched = datetime.datetime.now()
+    # Check the encoder to see if its been changed
+    count = encoder_count()
+    if count != last_count:
+        last_count = count
+        encoder_last_changed = datetime.datetime.now()
 
-                    # If the status has changed update the system
-                    if slack_status_message is not _slack_status_message:
-                        slack_status_message = _slack_status_message
-                        # Reset the counter
-                        set_encoder_count(0)
-                    # Ensure the screen shows the latest message
-                    set_display_status(slack_status_message, "Current status")
-                except RuntimeError:
-                    set_display_status(slack_status_message, "Error checking slack")
-                    # Wait a few seconds as the next time around it will try again
-                    time.sleep(5)
+        # Encoder changed, update the screen
+        if count == 0:
+            set_display_status(slack_status_message, "Current status")
+            desired_slack_status_id = 0
+        elif count == 1:
+            set_display_status("Clear status", None)
+            desired_slack_status_id = 1
+            draft_status = True
+        elif count == 2:
+            set_display_status("Busy", None)
+            desired_slack_status_id = 2
+            draft_status = True
+        elif count == 3:
+            set_display_status("Lunch", None)
+            desired_slack_status_id = 3
+            draft_status = True
 
-            # Check the encoder to see if its been changed
-            count = encoder_count()
-            if count != last_count:
-                last_count = count
-                encoder_last_changed = datetime.datetime.now()
-
-                # Encoder changed, update the screen
-                if count == 0:
-                    set_display_status(slack_status_message, "Current status")
-                    desired_slack_status_id = 0
-                elif count == 1:
-                    set_display_status("Clear status", None)
-                    desired_slack_status_id = 1
-                    draft_status = True
-                elif count == 2:
-                    set_display_status("Busy", None)
-                    desired_slack_status_id = 2
-                    draft_status = True
-                elif count == 3:
-                    set_display_status("Lunch", None)
-                    desired_slack_status_id = 3
-                    draft_status = True
-
-            # If the status has been changed and we have been waiting 5 seconds make the update
-            if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
-                if slack_status_id == desired_slack_status_id:
-                    # No change in status
-                    draft_status = False
-                else:
-                    slack_status_id = desired_slack_status_id
-                    draft_status = False
-                    try:
-                        if slack_status_id == 1:
-                            slack_status_message = None
-                            set_display_status(slack_status_message, "Updating slack...")
-                            set_slack_status(slack_status_message)
-                        elif slack_status_id == 2:
-                            slack_status_message = "Busy"
-                            set_display_status(slack_status_message, "Updating slack...")
-                            set_slack_status(slack_status_message, ":computer:")
-                        elif slack_status_id == 3:
-                            slack_status_message = "Lunch"
-                            set_display_status(slack_status_message, "Updating slack...")
-                            set_slack_status(slack_status_message, ":deciduous_tree:")
-                        # Reset the selector back to viewing the current status
-                        set_encoder_count(0)
-                    except RuntimeError:
-                        print("Error setting slack status")
-
-    except KeyboardInterrupt:
-        encoder_cleanup()
+    # If the status has been changed and we have been waiting 5 seconds make the update
+    if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
+        if slack_status_id == desired_slack_status_id:
+            # No change in status
+            draft_status = False
+        else:
+            slack_status_id = desired_slack_status_id
+            draft_status = False
+            try:
+                if slack_status_id == 1:
+                    slack_status_message = None
+                    set_display_status(slack_status_message, "Updating slack...")
+                    set_slack_status(slack_status_message)
+                elif slack_status_id == 2:
+                    slack_status_message = "Busy"
+                    set_display_status(slack_status_message, "Updating slack...")
+                    set_slack_status(slack_status_message, ":computer:")
+                elif slack_status_id == 3:
+                    slack_status_message = "Lunch"
+                    set_display_status(slack_status_message, "Updating slack...")
+                    set_slack_status(slack_status_message, ":deciduous_tree:")
+                # Reset the selector back to viewing the current status
+                set_encoder_count(0)
+            except RuntimeError:
+                print("Error setting slack status")
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        init_encoder()
+        while True:
+            check_update_slack()
+    except KeyboardInterrupt:
+        encoder_cleanup()
