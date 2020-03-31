@@ -48,9 +48,9 @@ def set_display_status(status_text, sub_text=None):
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
     if status_text is not None:
-        draw.text((0, 0), status_text, font=main_font, fill=255)
+        draw.text((0, -4), status_text, font=main_font, fill=255)
     if sub_text is not None:
-        draw.text((0, 25), sub_text, font=font, fill=255)
+        draw.text((0, 21), sub_text, font=font, fill=255)
     disp.image(image)
     disp.show()
 
