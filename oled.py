@@ -12,9 +12,6 @@ from encoder import encoder_count
 from encoder import set_encoder_count
 
 from slack_helpers import get_slack_status
-from slack_helpers import set_slack_status_busy
-from slack_helpers import set_slack_status_lunch
-from slack_helpers import set_slack_status_empty
 from slack_helpers import set_slack_status
 
 
@@ -38,17 +35,6 @@ image = Image.new("1", (width, height))
 # Get drawing object to draw on image.
 draw = ImageDraw.Draw(image)
 
-# Draw a black filled box to clear the image.
-draw.rectangle((0, 0, width, height), outline=0, fill=0)
-
-# Draw some shapes.
-# First define some constants to allow easy resizing of shapes.
-padding = -2
-top = padding
-bottom = height - padding
-# Move left to right keeping track of the current x position for drawing shapes.
-x = 0
-
 
 # Load default font.
 font = ImageFont.load_default()
@@ -66,9 +52,9 @@ def set_display_status(status_text, sub_text=None):
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
     if status_text is not None:
-        draw.text((x, top), status_text, font=main_font, fill=255)
+        draw.text((0, 0), status_text, font=main_font, fill=255)
     if sub_text is not None:
-        draw.text((x, top + 25), sub_text, font=font, fill=255)
+        draw.text((0, 25), sub_text, font=font, fill=255)
     disp.image(image)
     disp.show()
 
