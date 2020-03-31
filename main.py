@@ -269,5 +269,3 @@ if __name__ == '__main__':
                 screen_day_last_updated = datetime.datetime.now().day
 
         check_update_slack()
-
-        time.sleep(1)
