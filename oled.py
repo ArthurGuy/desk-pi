@@ -23,8 +23,8 @@ i2c = busio.I2C(SCL, SDA)
 disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
 
 # Clear display.
-disp.fill(0)
-disp.show()
+# disp.fill(0)
+# disp.show()
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
