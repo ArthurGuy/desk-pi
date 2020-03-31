@@ -55,6 +55,10 @@ def set_display_status(status_text, sub_text=None):
     disp.show()
 
 
+def setup_slack_screen():
+    init_encoder()
+
+
 def check_update_slack():
     global slack_status_message, slack_status_last_fetched, draft_status, encoder_last_changed, slack_status_id, desired_slack_status_id
     last_count = -1
@@ -131,7 +135,7 @@ def check_update_slack():
 
 if __name__ == '__main__':
     try:
-        init_encoder()
+        setup_slack_screen()
         while True:
             check_update_slack()
     except KeyboardInterrupt:

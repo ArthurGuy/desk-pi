@@ -11,6 +11,7 @@ from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
 from led_helpers import work_day_ended
 from slack_screen import check_update_slack
+from slack_screen import setup_slack_screen
 
 PATH = os.path.dirname(__file__)
 
@@ -245,6 +246,8 @@ screen_day_last_updated = None
 leds_last_updated = None
 
 if __name__ == '__main__':
+    setup_slack_screen()
+
     while True:
         update_eink_screen = False
 
