@@ -42,6 +42,7 @@ encoder_last_changed = None
 draft_status = False
 slack_status_id = 0
 desired_slack_status_id = 0
+last_count = -1
 
 
 def set_display_status(status_text, sub_text=None):
@@ -60,8 +61,7 @@ def setup_slack_screen():
 
 
 def check_update_slack():
-    global slack_status_message, slack_status_last_fetched, draft_status, encoder_last_changed, slack_status_id, desired_slack_status_id
-    last_count = -1
+    global slack_status_message, slack_status_last_fetched, draft_status, encoder_last_changed, slack_status_id, desired_slack_status_id, last_count
 
     # Fetch the current status every 5 minutes and on startup
     if slack_status_last_fetched is None or (datetime.datetime.now() - slack_status_last_fetched).seconds > 300:
