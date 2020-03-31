@@ -10,6 +10,7 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
 from led_helpers import work_day_ended
+from slack_screen import check_update_slack
 
 PATH = os.path.dirname(__file__)
 
@@ -241,26 +242,32 @@ def update_calendar():
 
 screen_last_updated = None
 screen_day_last_updated = None
-
+leds_last_updated = None
 
 if __name__ == '__main__':
     while True:
-        update_screen = False
-        update_led_row(led_event_list)
+        update_eink_screen = False
+
+        if leds_last_updated is None or (datetime.datetime.now() - leds_last_updated).seconds > 10:
+            # Every 10 seconds update the LED's
+            update_led_row(led_event_list)
+            leds_last_updated = datetime.datetime.now()
 
         if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
             clean_display()
-            update_screen = True
+            update_eink_screen = True
             # Update each morning to correct today/tomorrow
 
         if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 3600:
-            update_screen = True
+            update_eink_screen = True
             # Update every hour in case of new events
 
-        if update_screen:
+        if update_eink_screen:
             update_success = update_calendar()
             if update_success:
                 screen_last_updated = datetime.datetime.now()
                 screen_day_last_updated = datetime.datetime.now().day
 
-        time.sleep(10)
+        check_update_slack()
+
+        time.sleep(1)
