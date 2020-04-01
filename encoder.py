@@ -36,7 +36,7 @@ def init_encoder():
 
     # setup an event detection thread for the A encoder switch
     GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2)  # bouncetime in mSec
-    GPIO.add_event_detect(Enc_SW, GPIO.RISING, callback=switch_pressed, bouncetime=2)  # bouncetime in mSec
+    GPIO.add_event_detect(Enc_SW, GPIO.RISING, callback=switch_pressed, bouncetime=5)  # bouncetime in mSec
 
 
 def rotation_decode(Enc_A):
