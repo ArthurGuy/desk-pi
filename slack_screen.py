@@ -56,6 +56,10 @@ def set_display_status(status_text, sub_text=None):
     disp.show()
 
 
+def update_slack_screen_error(message):
+    set_display_status("Error", message)
+
+
 def setup_slack_screen():
     init_encoder()
 

@@ -12,6 +12,7 @@ from led_helpers import update_led_row
 from led_helpers import work_day_ended
 from slack_screen import check_update_slack
 from slack_screen import setup_slack_screen
+from slack_screen import update_slack_screen_error
 
 PATH = os.path.dirname(__file__)
 
@@ -197,6 +198,7 @@ def update_calendar():
 screen_last_updated = None
 screen_day_last_updated = None
 leds_last_updated = None
+error_fetching_calendar_count = 0
 
 if __name__ == '__main__':
     setup_slack_screen()
@@ -223,8 +225,14 @@ if __name__ == '__main__':
             if update_success:
                 screen_last_updated = datetime.datetime.now()
                 screen_day_last_updated = datetime.datetime.now().day
+                error_fetching_calendar_count = 0
             else:
                 # Error fetching calendars, probably network error so wait and try again
+                error_fetching_calendar_count += 1
+                time.sleep(5)
+
+            if error_fetching_calendar_count > 5:
+                update_slack_screen_error("Error fetching calendar")
                 time.sleep(5)
 
         check_update_slack()
