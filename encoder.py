@@ -23,7 +23,7 @@ def init_encoder():
     GPIO.setup(Enc_A, GPIO.IN)
     GPIO.setup(Enc_B, GPIO.IN)
 
-    GPIO.setup(Enc_SW, GPIO.IN)
+    GPIO.setup(Enc_SW, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     # Setup the LED outputs and turn off
     GPIO.setup(Enc_LED_R, GPIO.OUT)
