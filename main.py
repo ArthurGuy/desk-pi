@@ -10,6 +10,7 @@ from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
 from led_helpers import work_day_ended
+from led_helpers import set_indicator_led
 from slack_screen import check_update_slack
 from slack_screen import setup_slack_screen
 from slack_screen import update_slack_screen_error
@@ -203,6 +204,8 @@ error_fetching_calendar_count = 0
 
 if __name__ == '__main__':
     setup_slack_screen()
+
+    set_indicator_led(0.7, 1)
 
     while True:
         update_eink_screen = False

@@ -107,6 +107,11 @@ def highlight_current_time(hour, minute):
                 set_pixel(pixel + x, current_time_hew, 1, current_time_brightness)
 
 
+def set_indicator_led(hew, brightness):
+    set_pixel(ledshim.NUM_PIXELS - 1, hew, 1, brightness)
+    set_pixel(ledshim.NUM_PIXELS - 2, hew, 1, brightness)
+
+
 def work_day_ended():
     current_time = datetime.datetime.now()
     if current_time.hour >= end_hour:
