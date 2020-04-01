@@ -205,8 +205,6 @@ error_fetching_calendar_count = 0
 if __name__ == '__main__':
     setup_slack_screen()
 
-    set_indicator_led(0.7, 1)
-
     while True:
         update_eink_screen = False
 

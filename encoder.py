@@ -36,6 +36,7 @@ def init_encoder():
 
     # setup an event detection thread for the A encoder switch
     GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2)  # bouncetime in mSec
+    GPIO.add_event_detect(Enc_SW, GPIO.RAISING, callback=switch_pressed, bouncetime=2)  # bouncetime in mSec
 
 
 def rotation_decode(Enc_A):
@@ -69,6 +70,14 @@ def rotation_decode(Enc_A):
 
     else:  # discard all other combinations
         return None
+
+
+def switch_pressed():
+    set_led('B', True)
+    switch = GPIO.input(Enc_SW)
+    while switch == 1:
+        switch = GPIO.input(Enc_SW)
+    set_led('B', False)
 
 
 def set_led(colour, state):

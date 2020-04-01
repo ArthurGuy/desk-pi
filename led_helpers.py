@@ -127,8 +127,10 @@ def update_led_row(event_times):
 
     if start_hour <= current_time.hour < end_hour:
         working_hours = True
+        set_indicator_led(current_time_event_overlap_hew, 1)
     else:
         working_hours = False
+        set_indicator_led(current_time_hew, 1)
 
     # Create the time outline
     for x in range(num_leds):
