@@ -13,6 +13,7 @@ from led_helpers import work_day_ended
 from slack_screen import check_update_slack
 from slack_screen import setup_slack_screen
 from slack_screen import update_slack_screen_error
+from encoder import set_led
 
 PATH = os.path.dirname(__file__)
 

@@ -4,6 +4,10 @@ from time import sleep
 # GPIO Ports
 Enc_A = 23  # Encoder input A
 Enc_B = 24  # Encoder input B
+Enc_LED_R = 11
+Enc_LED_G = 9
+Enc_LED_B = 10
+Enc_SW = 22
 
 encoder_counter = 0
 encoder_counter_max = 3
@@ -18,6 +22,17 @@ def init_encoder():
     # define the Encoder switch inputs
     GPIO.setup(Enc_A, GPIO.IN)
     GPIO.setup(Enc_B, GPIO.IN)
+
+    GPIO.setup(Enc_SW, GPIO.IN)
+
+    # Setup the LED outputs and turn off
+    GPIO.setup(Enc_LED_R, GPIO.OUT)
+    GPIO.setup(Enc_LED_G, GPIO.OUT)
+    GPIO.setup(Enc_LED_B, GPIO.OUT)
+    GPIO.output(Enc_LED_R, True)
+    GPIO.output(Enc_LED_G, True)
+    GPIO.output(Enc_LED_B, True)
+
 
     # setup an event detection thread for the A encoder switch
     GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2)  # bouncetime in mSec
@@ -54,6 +69,15 @@ def rotation_decode(Enc_A):
 
     else:  # discard all other combinations
         return None
+
+
+def set_led(colour, state):
+    if colour is 'R':
+        GPIO.output(Enc_LED_R, not state)
+    elif colour is 'G':
+        GPIO.output(Enc_LED_G, not state)
+    elif colour is 'B':
+        GPIO.output(Enc_LED_B, not state)
 
 
 def encoder_count():

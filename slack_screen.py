@@ -10,6 +10,7 @@ from encoder import init_encoder
 from encoder import encoder_cleanup
 from encoder import encoder_count
 from encoder import set_encoder_count
+from encoder import set_led
 
 from slack_helpers import get_slack_status
 from slack_helpers import set_slack_status
@@ -90,6 +91,7 @@ def check_update_slack():
     # Check the encoder to see if its been changed
     count = encoder_count()
     if count != last_count:
+        set_led('B', True)
         last_count = count
         encoder_last_changed = datetime.datetime.now()
 
@@ -135,6 +137,7 @@ def check_update_slack():
                 set_encoder_count(0)
             except RuntimeError:
                 print("Error setting slack status")
+        set_led('B', False)
 
 
 if __name__ == '__main__':
