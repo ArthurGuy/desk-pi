@@ -72,7 +72,7 @@ def rotation_decode(Enc_A):
         return None
 
 
-def switch_pressed():
+def switch_pressed(Enc_SW):
     set_led('B', True)
     switch = GPIO.input(Enc_SW)
     while switch == 1:
