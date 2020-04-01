@@ -91,7 +91,7 @@ def check_update_slack():
     # Check the encoder to see if its been changed
     count = encoder_count()
     if count != last_count:
-        set_led('B', True)
+        # set_led('B', True)
         last_count = count
         encoder_last_changed = datetime.datetime.now()
 
@@ -139,7 +139,7 @@ def check_update_slack():
                 set_led('R', True)
                 print("Error setting slack status")
                 return
-        set_led('B', False)
+        # set_led('B', False)
         set_led('R', False)
 
 

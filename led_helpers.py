@@ -108,8 +108,9 @@ def highlight_current_time(hour, minute):
 
 
 def set_indicator_led(hew, brightness):
-    set_pixel(ledshim.NUM_PIXELS - 1, hew, 1, brightness)
-    set_pixel(ledshim.NUM_PIXELS - 2, hew, 1, brightness)
+    r, g, b = [int(c * 255) for c in colorsys.hsv_to_rgb(hew, 1, brightness)]
+    ledshim.set_pixel(ledshim.NUM_PIXELS - 1, r, g, b, brightness)
+    ledshim.set_pixel(ledshim.NUM_PIXELS - 2, r, g, b, brightness)
 
 
 def work_day_ended():
