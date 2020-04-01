@@ -130,7 +130,8 @@ def update_calendar():
             # Nothing left for today, show tomorrows stuff
             show_tomorrows_events = True
             events = get_all_calendar_items(tomorrow_only=True)
-    except RuntimeError:
+    except:
+        # Error fetching calendars, probably network error
         return False
 
     # Write over the text with a white box
@@ -222,5 +223,8 @@ if __name__ == '__main__':
             if update_success:
                 screen_last_updated = datetime.datetime.now()
                 screen_day_last_updated = datetime.datetime.now().day
+            else:
+                # Error fetching calendars, probably network error so wait and try again
+                time.sleep(5)
 
         check_update_slack()
