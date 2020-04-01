@@ -136,8 +136,11 @@ def check_update_slack():
                 # Reset the selector back to viewing the current status
                 set_encoder_count(0)
             except RuntimeError:
+                set_led('R', True)
                 print("Error setting slack status")
+                return
         set_led('B', False)
+        set_led('R', False)
 
 
 if __name__ == '__main__':
