@@ -11,6 +11,7 @@ from encoder import encoder_cleanup
 from encoder import encoder_count
 from encoder import set_encoder_count
 from encoder import set_led
+from encoder import set_encoder_count_max
 
 from slack_helpers import get_slack_status
 from slack_helpers import set_slack_status
@@ -63,6 +64,7 @@ def update_slack_screen_error(message):
 
 def setup_slack_screen():
     init_encoder()
+    set_encoder_count_max(5)
 
 
 def check_update_slack():
@@ -115,6 +117,10 @@ def check_update_slack():
             set_display_status("Working", None)
             desired_slack_status_id = 4
             draft_status = True
+        elif count == 5:
+            set_display_status("Meeting", None)
+            desired_slack_status_id = 5
+            draft_status = True
 
     # If the status has been changed and we have been waiting 5 seconds make the update
     if draft_status and (datetime.datetime.now() - encoder_last_changed).seconds > 5:
@@ -141,6 +147,10 @@ def check_update_slack():
                     slack_status_message = "Working"
                     set_display_status(slack_status_message, "Updating slack...")
                     set_slack_status(slack_status_message, ":computer:")
+                elif slack_status_id == 5:
+                    slack_status_message = "Meeting"
+                    set_display_status(slack_status_message, "Updating slack...")
+                    set_slack_status(slack_status_message, ":speech_balloon:")
                 # Reset the selector back to viewing the current status
                 set_encoder_count(0)
             except RuntimeError:

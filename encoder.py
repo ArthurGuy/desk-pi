@@ -35,7 +35,7 @@ def init_encoder():
 
 
     # setup an event detection thread for the A encoder switch
-    GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=2)  # bouncetime in mSec
+    GPIO.add_event_detect(Enc_A, GPIO.FALLING, callback=rotation_decode, bouncetime=3)  # bouncetime in mSec
     # GPIO.add_event_detect(Enc_SW, GPIO.RISING, callback=switch_pressed, bouncetime=5)  # bouncetime in mSec
 
 
@@ -96,6 +96,11 @@ def encoder_count():
 def set_encoder_count(count):
     global encoder_counter
     encoder_counter = count
+
+
+def set_encoder_count_max(count):
+    global encoder_counter_max
+    encoder_counter_max = count
 
 
 def encoder_cleanup():
