@@ -216,11 +216,11 @@ if __name__ == '__main__':
         if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
             clean_display()
             update_eink_screen = True
-            # Update each morning to correct today/tomorrow
+            # Update each morning to correct today/tomorrow and the date
 
-        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 3600:
+        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 1800:
             update_eink_screen = True
-            # Update every hour in case of new events
+            # Update every 30 minutes in case of new events
 
         if update_eink_screen:
             update_success = update_calendar()

@@ -24,7 +24,7 @@ current_time_hew = 0.7  # blue
 current_time_event_overlap_hew = 0.5  # light blue
 current_time_brightness = 0.9
 
-meeting_indicator_hew = 0.0
+meeting_indicator_hew = 0.0  # red
 
 work_day_hew = 0.2  # green/yellow
 work_day_brightness = 0.8
