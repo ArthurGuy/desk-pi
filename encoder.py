@@ -10,7 +10,7 @@ Enc_LED_B = 13
 Enc_SW = 22
 
 encoder_counter = 0
-encoder_counter_max = 3
+encoder_counter_max = 4
 
 
 def init_encoder():
@@ -50,7 +50,7 @@ def rotation_decode(Enc_A):
         encoder_counter += 1
         if encoder_counter > encoder_counter_max:
             encoder_counter = 0
-        print("direction -> ", encoder_counter)
+        # print("direction -> ", encoder_counter)
         while switch_b == 1:
             switch_b = GPIO.input(Enc_B)
 
@@ -63,7 +63,7 @@ def rotation_decode(Enc_A):
         encoder_counter -= 1
         if encoder_counter < 0:
             encoder_counter = encoder_counter_max
-        print("direction <- ", encoder_counter)
+        # print("direction <- ", encoder_counter)
         while switch_a == 0:
             switch_a = GPIO.input(Enc_A)
         return
