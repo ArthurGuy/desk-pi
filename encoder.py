@@ -4,9 +4,9 @@ from time import sleep
 # GPIO Ports
 Enc_A = 23  # Encoder input A
 Enc_B = 24  # Encoder input B
-Enc_LED_R = 11
-Enc_LED_G = 9
-Enc_LED_B = 10
+Enc_LED_R = 5
+Enc_LED_G = 6
+Enc_LED_B = 13
 Enc_SW = 22
 
 encoder_counter = 0
