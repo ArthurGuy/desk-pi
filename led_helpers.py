@@ -24,6 +24,8 @@ current_time_hew = 0.7  # blue
 current_time_event_overlap_hew = 0.5  # light blue
 current_time_brightness = 0.9
 
+meeting_indicator_hew = 0.0
+
 work_day_hew = 0.2  # green/yellow
 work_day_brightness = 0.8
 
@@ -102,6 +104,7 @@ def highlight_current_time(hour, minute):
             if (pixel + x) in event_pixels:
                 # We are in an event
                 set_pixel(pixel + x, current_time_event_overlap_hew, 1, current_time_brightness)
+                set_indicator_led(meeting_indicator_hew, 1)
             else:
                 # Normal day marker
                 set_pixel(pixel + x, current_time_hew, 1, current_time_brightness)
