@@ -7,3 +7,5 @@ ledshim
 smbus
 numpy
 adafruit-circuitpython-ssd1306
+font-fredoka-one
+font-amatic-sc
