@@ -30,7 +30,7 @@ inky_display = InkyPHAT('red')
 # Fonts
 bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
 # label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
-label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(15))  # displays correctly at 12
+label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(16))  # displays correctly at 12
 # label_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(15))
 
 
@@ -176,7 +176,7 @@ def update_calendar():
         for x in range(137 - (y - 79), inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
     date_text = today.strftime("%d/%m/%Y")
-    draw_text((138, bottom_info_row_y_start + 3), date_text, colour=inky_display.RED)
+    draw_text((138, bottom_info_row_y_start + 3), date_text, colour=inky_display.WHITE)
 
     # Bottom left corner markings
     for y in range(bottom_info_row_y_start, inky_display.height):
@@ -185,7 +185,7 @@ def update_calendar():
 
     # Display the day in the bottom space
     day_text = today.strftime("%A")
-    draw_text((22, bottom_info_row_y_start), day_text, colour=inky_display.BLACK)
+    draw_text((22, bottom_info_row_y_start), day_text, colour=inky_display.RED)
 
     # bottom dividing line
     # for y in range(84, 86):
