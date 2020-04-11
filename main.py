@@ -27,10 +27,10 @@ inky_display = InkyPHAT('black')
 
 
 # Fonts
-hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
-# hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
-# hanken_label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(13))
-hanken_label_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(15))
+bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
+# label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
+label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(12))
+# label_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(15))
 
 
 # Canvas
@@ -86,7 +86,7 @@ def create_mask(source, mask=(inky_display.WHITE, inky_display.BLACK, inky_displ
 def draw_text(position, text, font=None, colour=inky_display.BLACK, rotation=0):
     # x, y = position
     if font is None:
-        font = hanken_label_font
+        font = label_font
     w, h = font.getsize(text)
     mask = Image.new('1', (w, h))
     draw = ImageDraw.Draw(mask)
