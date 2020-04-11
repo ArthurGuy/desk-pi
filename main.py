@@ -29,9 +29,12 @@ inky_display = InkyPHAT('red')
 
 # Fonts
 # bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
-label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 # label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(13))  # displays correctly at 12
+
+# label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 bold_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(17))
+
+label_font = InkyPHAT.ImageFont(InkyPHAT.fonts.AmaticSCBold, 13)
 
 
 # Canvas
