@@ -22,7 +22,7 @@ ledshim.set_clear_on_exit()
 
 # Initialise the eink display
 # inky_display = InkyPHAT('black')
-inky_display = InkyPHAT()
+inky_display = InkyPHAT('red')
 # inky_display.h_flip = True
 # inky_display.v_flip = True
 
