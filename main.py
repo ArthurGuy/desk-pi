@@ -21,7 +21,8 @@ PATH = os.path.dirname(__file__)
 ledshim.set_clear_on_exit()
 
 # Initialise the eink display
-inky_display = InkyPHAT('black')
+# inky_display = InkyPHAT('black')
+inky_display = InkyPHAT()
 # inky_display.h_flip = True
 # inky_display.v_flip = True
 
@@ -29,7 +30,7 @@ inky_display = InkyPHAT('black')
 # Fonts
 bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
 # label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
-label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(12))
+label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(15))  # displays correctly at 12
 # label_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(15))
 
 
@@ -175,7 +176,7 @@ def update_calendar():
         for x in range(137 - (y - 79), inky_display.width):
             img.putpixel((x, y), inky_display.BLACK)
     date_text = today.strftime("%d/%m/%Y")
-    draw_text((138, bottom_info_row_y_start + 3), date_text, colour=inky_display.WHITE)
+    draw_text((138, bottom_info_row_y_start + 3), date_text, colour=inky_display.RED)
 
     # Bottom left corner markings
     for y in range(bottom_info_row_y_start, inky_display.height):
