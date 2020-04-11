@@ -28,7 +28,8 @@ inky_display = InkyPHAT('black')
 
 # Fonts
 hanken_bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
-hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
+# hanken_label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
+hanken_label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(13))
 
 
 # Canvas
