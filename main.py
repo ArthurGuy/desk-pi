@@ -30,14 +30,15 @@ inky_display = InkyPHAT('red')
 
 # Fonts
 # AmaticSC - very condensed
+# AmaticSCBold - very small, does work at small size
 # FredokaOne - 13: very bold, legible
 # bold_font = ImageFont.truetype(HankenGroteskBold, int(15))
 # label_font = ImageFont.truetype('Screenstar-Small-Regular.otf', int(13))  # displays correctly at 12
 
-# label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
-bold_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(17))
-
-label_font = ImageFont.truetype(FredokaOne, 14)
+# label_font = ImageFont.truetype(FredokaOne, 13)
+label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
+# bold_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(17))
+bold_font = ImageFont.truetype(FredokaOne, 14)
 
 
 # Canvas
