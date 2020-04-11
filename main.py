@@ -7,7 +7,7 @@ import colorsys
 from inky import InkyPHAT
 from PIL import Image, ImageFont, ImageDraw
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
-from fonts.ttf import AmaticSC, AmaticSCBold, FredokaOne, PressStart2P
+from fonts.ttf import AmaticSC, AmaticSCBold, FredokaOne
 from calendar_helpers import get_all_calendar_items
 from led_helpers import update_led_row
 from led_helpers import work_day_ended
@@ -37,7 +37,7 @@ inky_display = InkyPHAT('red')
 # label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 bold_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(17))
 
-label_font = ImageFont.truetype(PressStart2P, 13)
+label_font = ImageFont.truetype(AmaticSCBold, 13)
 
 
 # Canvas
