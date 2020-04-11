@@ -35,7 +35,7 @@ inky_display = InkyPHAT('red')
 # label_font = ImageFont.truetype(HankenGroteskMedium, int(13))
 bold_font = ImageFont.truetype('SubVario-Condensed-Medium.otf', int(17))
 
-label_font = ImageFont.truetype(AmaticSCBold, 13)
+label_font = ImageFont.truetype(FredokaOne, 13)
 
 
 # Canvas
