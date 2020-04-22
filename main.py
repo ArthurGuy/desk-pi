@@ -15,6 +15,7 @@ from led_helpers import set_indicator_led
 from slack_screen import check_update_slack
 from slack_screen import setup_slack_screen
 from slack_screen import update_slack_screen_error
+from encoder import encoder_cleanup
 from encoder import set_led
 
 PATH = os.path.dirname(__file__)
@@ -213,38 +214,41 @@ leds_last_updated = None
 error_fetching_calendar_count = 0
 
 if __name__ == '__main__':
-    setup_slack_screen()
+    try:
+        setup_slack_screen()
 
-    while True:
-        update_eink_screen = False
+        while True:
+            update_eink_screen = False
 
-        if leds_last_updated is None or (datetime.datetime.now() - leds_last_updated).seconds > 10:
-            # Every 10 seconds update the LED's
-            update_led_row(led_event_list)
-            leds_last_updated = datetime.datetime.now()
+            if leds_last_updated is None or (datetime.datetime.now() - leds_last_updated).seconds > 10:
+                # Every 10 seconds update the LED's
+                update_led_row(led_event_list)
+                leds_last_updated = datetime.datetime.now()
 
-        if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
-            clean_display()
-            update_eink_screen = True
-            # Update each morning to correct today/tomorrow and the date
+            if screen_day_last_updated is None or datetime.datetime.now().day != screen_day_last_updated:
+                clean_display()
+                update_eink_screen = True
+                # Update each morning to correct today/tomorrow and the date
 
-        if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 1800:
-            update_eink_screen = True
-            # Update every 30 minutes in case of new events
+            if screen_last_updated is None or (datetime.datetime.now() - screen_last_updated).seconds > 1800:
+                update_eink_screen = True
+                # Update every 30 minutes in case of new events
 
-        if update_eink_screen:
-            update_success = update_calendar()
-            if update_success:
-                screen_last_updated = datetime.datetime.now()
-                screen_day_last_updated = datetime.datetime.now().day
-                error_fetching_calendar_count = 0
-            else:
-                # Error fetching calendars, probably network error so wait and try again
-                error_fetching_calendar_count += 1
-                time.sleep(5)
+            if update_eink_screen:
+                update_success = update_calendar()
+                if update_success:
+                    screen_last_updated = datetime.datetime.now()
+                    screen_day_last_updated = datetime.datetime.now().day
+                    error_fetching_calendar_count = 0
+                else:
+                    # Error fetching calendars, probably network error so wait and try again
+                    error_fetching_calendar_count += 1
+                    time.sleep(5)
 
-            if error_fetching_calendar_count > 5:
-                update_slack_screen_error("Error fetching calendar")
-                time.sleep(5)
+                if error_fetching_calendar_count > 5:
+                    update_slack_screen_error("Error fetching calendar")
+                    time.sleep(5)
 
-        check_update_slack()
+            check_update_slack()
+    except KeyboardInterrupt:
+        encoder_cleanup()

@@ -1,5 +1,6 @@
 import time
 
+from aiohttp import ClientConnectorError
 from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
@@ -85,7 +86,7 @@ def check_update_slack():
                 set_encoder_count(0)
             # Ensure the screen shows the latest message
             set_display_status(slack_status_message, "Current status")
-        except RuntimeError:
+        except ClientConnectorError:
             set_display_status(slack_status_message, "Error checking slack")
             # Wait a few seconds as the next time around it will try again
             time.sleep(5)
