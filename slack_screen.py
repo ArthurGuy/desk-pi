@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 from font_hanken_grotesk import HankenGroteskBold, HankenGroteskMedium
 import datetime
+import asyncio
 from encoder import init_encoder
 from encoder import encoder_cleanup
 from encoder import encoder_count
@@ -86,7 +87,7 @@ def check_update_slack():
                 set_encoder_count(0)
             # Ensure the screen shows the latest message
             set_display_status(slack_status_message, "Current status")
-        except ClientConnectorError:
+        except (ClientConnectorError, asyncio.TimeoutError):
             set_display_status(slack_status_message, "Error checking slack")
             # Wait a few seconds as the next time around it will try again
             time.sleep(5)
