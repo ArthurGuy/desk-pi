@@ -26,4 +26,4 @@ while True:
         print(
             "**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
             % (sgp30.baseline_eCO2, sgp30.baseline_TVOC)
-        )urements())
+        )
