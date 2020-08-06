@@ -10,7 +10,7 @@ from Adafruit_IO import Client, Feed, RequestError
 # Fetch the key for the IO service
 aio_key = None
 if os.path.exists('aio.txt'):
-    aio_key = str(open('aio', 'r').read()).strip()
+    aio_key = str(open('aio.txt', 'r').read()).strip()
 else:
     print('No token set for adafruitio')
 
