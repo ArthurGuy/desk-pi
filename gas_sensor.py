@@ -23,7 +23,7 @@ sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
 print("SGP30 serial #", [hex(i) for i in sgp30.serial])
 
 sgp30.iaq_init()
-# sgp30.set_iaq_baseline(0x8f86, 0x90b7)
+# sgp30.set_iaq_baseline(0x8eb4, 0x912b)
 
 # Setup the io data feeds
 aio = Client('ArthurGuy', aio_key)
@@ -32,17 +32,25 @@ eCO2_feed = aio.feeds('study.eco2')
 
 elapsed_sec = 0
 
-while True:
+
+def capture_sensor_readings():
     print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
     time.sleep(1)
     aio.send(eCO2_feed.key, sgp30.eCO2)
     aio.send(tvoc_feed.key, sgp30.TVOC)
 
+
+def capture_sensor_baseline_readings():
+    print(
+        "**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
+        % (sgp30.baseline_eCO2, sgp30.baseline_TVOC)
+    )
+
+
+while True:
+    capture_sensor_readings()
+    time.sleep(10)
     elapsed_sec += 1
     if elapsed_sec > 6:
         elapsed_sec = 0
-        print(
-            "**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
-            % (sgp30.baseline_eCO2, sgp30.baseline_TVOC)
-        )
-    time.sleep(10)
+        capture_sensor_baseline_readings()
