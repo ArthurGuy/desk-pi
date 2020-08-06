@@ -27,8 +27,8 @@ sgp30.iaq_init()
 
 # Setup the io data feeds
 aio = Client('ArthurGuy', aio_key)
-tvoc_feed = aio.feeds('tvoc')
-eCO2_feed = aio.feeds('eco2')
+tvoc_feed = aio.feeds('study.tvoc')
+eCO2_feed = aio.feeds('study.eco2')
 
 elapsed_sec = 0
 
