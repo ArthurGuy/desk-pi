@@ -1,17 +1,29 @@
-from smbus2 import SMBusWrapper
-from sgp30 import Sgp30
+""" Example for using the SGP30 with CircuitPython and the Adafruit library"""
+
 import time
-with SMBusWrapper(1) as bus:
-    sgp = Sgp30(bus, baseline_filename="/tmp/mySGP30_baseline")  # things thing with the baselinefile is dumb and will be changed in the future
-    print("resetting all i2c devices")
-    sgp.i2c_geral_call()  # WARNING: Will reset any device on teh i2cbus that listens for general call
-    print(sgp.read_features())
-    print(sgp.read_serial())
-    sgp.init_sgp()
-    print(sgp.read_measurements())
-    print("the SGP30 takes at least 15 seconds to warm up, 12 hours before the readigs become really stable")
-    for i in range(20):
-        time.sleep(1)
-        print(".", end="")
-    print()
-    print(sgp.read_measurements())
+import board
+import busio
+import adafruit_sgp30
+
+i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
+
+# Create library object on our I2C port
+sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
+
+print("SGP30 serial #", [hex(i) for i in sgp30.serial])
+
+sgp30.iaq_init()
+sgp30.set_iaq_baseline(0x8973, 0x8AAE)
+
+elapsed_sec = 0
+
+while True:
+    print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
+    time.sleep(1)
+    elapsed_sec += 1
+    if elapsed_sec > 10:
+        elapsed_sec = 0
+        print(
+            "**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
+            % (sgp30.baseline_eCO2, sgp30.baseline_TVOC)
+        )urements())
