@@ -9,4 +9,5 @@ numpy
 adafruit-circuitpython-ssd1306
 font-fredoka-one
 font-amatic-sc
-sgp30
+adafruit-circuitpython-sgp30
+adafruit-io

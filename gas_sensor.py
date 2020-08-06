@@ -1,11 +1,21 @@
 """ Example for using the SGP30 with CircuitPython and the Adafruit library"""
 
+import os
 import time
-import board
 import busio
 import adafruit_sgp30
+from board import SCL, SDA
+from Adafruit_IO import Client, Feed, RequestError
 
-i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
+# Fetch the key for the IO service
+aio_key = None
+if os.path.exists('aio.txt'):
+    aio_key = str(open('aio', 'r').read()).strip()
+else:
+    print('No token set for adafruitio')
+
+# Setup the gas sensor
+i2c = busio.I2C(SCL, SDA)
 
 # Create library object on our I2C port
 sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
@@ -13,17 +23,26 @@ sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
 print("SGP30 serial #", [hex(i) for i in sgp30.serial])
 
 sgp30.iaq_init()
-# sgp30.set_iaq_baseline(0x8973, 0x8AAE)
+# sgp30.set_iaq_baseline(0x8f86, 0x90b7)
+
+# Setup the io data feeds
+aio = Client('ArthurGuy', aio_key)
+tvoc_feed = aio.feeds('tvoc')
+eCO2_feed = aio.feeds('eco2')
 
 elapsed_sec = 0
 
 while True:
     print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
     time.sleep(1)
+    aio.send(eCO2_feed.key, sgp30.eCO2)
+    aio.send(tvoc_feed.key, sgp30.TVOC)
+
     elapsed_sec += 1
-    if elapsed_sec > 10:
+    if elapsed_sec > 6:
         elapsed_sec = 0
         print(
             "**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
             % (sgp30.baseline_eCO2, sgp30.baseline_TVOC)
         )
+    time.sleep(10)
