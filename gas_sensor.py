@@ -48,7 +48,7 @@ def capture_sensor_baseline_readings():
     print("**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x" % (sgp30.baseline_eCO2, sgp30.baseline_TVOC))
 
 
-while True:
+if __name__ == '__main__':
     status = capture_sensor_readings(True)
     if status is False:
         print("Error reading sensor")
