@@ -33,10 +33,10 @@ eCO2_feed = aio.feeds('study.eco2')
 elapsed_sec = 0
 
 
-def capture_sensor_readings():
+def capture_sensor_readings(debug=False):
     try:
-        print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
-        time.sleep(1)
+        if debug:
+            print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
         aio.send(eCO2_feed.key, sgp30.eCO2)
         aio.send(tvoc_feed.key, sgp30.TVOC)
         return True
@@ -49,7 +49,7 @@ def capture_sensor_baseline_readings():
 
 
 while True:
-    status = capture_sensor_readings()
+    status = capture_sensor_readings(True)
     if status is False:
         print("Error reading sensor")
     time.sleep(10)
