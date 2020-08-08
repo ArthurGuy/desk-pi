@@ -227,6 +227,8 @@ if __name__ == '__main__':
                 sensor_status = capture_sensor_readings()
                 if sensor_status is False:
                     set_led('R', True)
+                    time.sleep(2)
+                    set_led('R', False)
                 sensor_reading_last_captured = datetime.datetime.now()
 
             if leds_last_updated is None or (datetime.datetime.now() - leds_last_updated).seconds > 10:
