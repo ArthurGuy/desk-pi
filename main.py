@@ -16,7 +16,7 @@ from slack_screen import check_update_slack
 from slack_screen import setup_slack_screen
 from slack_screen import update_slack_screen_error
 from encoder import encoder_cleanup
-from gas_sensor import capture_sensor_readings
+# from gas_sensor import capture_sensor_readings
 from encoder import set_led
 
 PATH = os.path.dirname(__file__)
@@ -222,14 +222,14 @@ if __name__ == '__main__':
         while True:
             update_eink_screen = False
 
-            if sensor_reading_last_captured is None or (datetime.datetime.now() - sensor_reading_last_captured).seconds > 15:
-                # Every 15 seconds capture a sensor reading
-                sensor_status = capture_sensor_readings()
-                if sensor_status is False:
-                    set_led('R', True)
-                    time.sleep(2)
-                    set_led('R', False)
-                sensor_reading_last_captured = datetime.datetime.now()
+            # if sensor_reading_last_captured is None or (datetime.datetime.now() - sensor_reading_last_captured).seconds > 15:
+            #     # Every 15 seconds capture a sensor reading
+            #     sensor_status = capture_sensor_readings()
+            #     if sensor_status is False:
+            #         set_led('R', True)
+            #         time.sleep(2)
+            #         set_led('R', False)
+            #     sensor_reading_last_captured = datetime.datetime.now()
 
             if leds_last_updated is None or (datetime.datetime.now() - leds_last_updated).seconds > 10:
                 # Every 10 seconds update the LED's
